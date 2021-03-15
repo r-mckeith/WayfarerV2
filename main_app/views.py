@@ -6,3 +6,6 @@ def home(request):
 
 def profile(request):
   return render(request, 'profile.html')
+
+def cities_index(request):
+  return render(request, 'cities/index.html')
