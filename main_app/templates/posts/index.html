@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 {% block content  %}
 
-<p>{{ user }}</p>
-<p>{{ user.profile.first_name }} {{user.profile.last_name }}</p>
-<p>{{ user.date_joined }}</p>
-<p>{{ user.profile.current_city }}</p>
+<div class = "row">
+  <div class="card col s6">
+    <div class="card-content">
+      <p>{{ user.profile.first_name }} {{user.profile.last_name }}</p>
+      <p>{{ user.profile.current_city }}</p>
+      <p><small>Member since: {{ user.date_joined }}</small></p>
+    </div>
+  </div>
+</div>
+
 
 {% comment %} MODAL TRIGGER - EDIT PROFILE {% endcomment %}
 <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
@@ -27,23 +33,20 @@
 {% for post in posts %}
 
   <div class="card">
-    <a class="modal-trigger" href="#post-modal">
         <div class="card-content">
-          <p class="card-title">{{ post.title }} - <small>Posted by: {{user.profile.first_name}} {{user.profile.last_name}}</small></p>
+          <p class="card-title"><a class="modal-trigger" href="#post-modal{{post.id}}">{{ post.title }}</a> - <small>Posted by: {{post.user.username}}</small></p>
           <p>{{ post.body }}</p>
         </div>
-      </a>
   </div>
 
 
 {% comment %} POST SHOW - MODAL BODY {% endcomment %}
-<div id="post-modal" class="modal">
+<div id="post-modal{{post.id}}" class="modal">
   <div class="modal-content">
 
     <div class="card">
       <div class="card-content">
-        <p class="card-title">{{ post.title }} - <small>Posted by: {{user.profile.first_name}} {{user.profile.last_name}}</small></p>
-
+        <p class="card-title">{{ post.title }} - <small>Posted by: {{user}}</small></p>
         <p>{{ post.body }}</p>
       </div>
     </div>

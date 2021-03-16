@@ -6,8 +6,7 @@
 
 <div class="card">
   <div class="card-content">
-    <p class="card-title">{{ post.title }} - <small>Posted by: {{user.profile.first_name}} {{user.profile.last_name}}</small></p>
-
+    <p class="card-title">{{ post.title }} - <small>Posted by: {{post.user.username}}</small></p>
     <p>{{ post.body }}</p>
   </div>
 </div>
