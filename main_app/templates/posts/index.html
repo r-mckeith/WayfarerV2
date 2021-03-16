@@ -33,10 +33,12 @@
 {% for post in posts %}
 
   <div class="card">
-        <div class="card-content">
-          <p class="card-title"><a class="modal-trigger" href="#post-modal{{post.id}}">{{ post.title }}</a> - <small>Posted by: {{post.user.username}}</small></p>
-          <p>{{ post.body }}</p>
-        </div>
+    <div class="card-content">
+
+      <p class="card-title"><a class="modal-trigger" href="#post-modal{{post.id}}">{{ post.title }}</a> - <small>Posted by: <a href="{% url 'profile' post.user.id %}">{{post.user.username}}</a></small></p>
+      <p>{{ post.body }}</p>
+
+    </div>
   </div>
 
 
