@@ -38,7 +38,7 @@
     <div class="card-content">
 
       <p class="card-title"><a class="modal-trigger" href="#post-modal{{post.id}}">{{ post.title }}</a> - <small>Posted by: <a href="{% url 'profile' post.user.id %}">{{post.user.username}}</a></small></p>
-      <p>{{ post.body }}</p>
+      <p>{{ post.body|truncatechars_html:200 }}</p>
 
     </div>
   </div>
