@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .models import Post, City, Profile
 from .forms import PostForm, ProfileForm
 from django.http import HttpResponse
@@ -9,9 +10,18 @@ from django.http import HttpResponse
 def home(request):
   return render(request, 'home.html')
 
-def profile(request):
-  posts = Post.objects.all()
+def profile_login(request):
+  posts = Post.objects.filter(user=request.user)
   profile = Profile.objects.get(user=request.user)
+  profile_form = ProfileForm(instance=profile)
+  return render(request, 'posts/index.html', { 
+    'posts': posts, 
+    'profile_form': profile_form
+    })
+
+def profile(request, user_id):
+  posts = Post.objects.filter(user_id=user_id)
+  profile = Profile.objects.get(user_id=user_id)
   profile_form = ProfileForm(instance=profile)
   return render(request, 'posts/index.html', { 
     'posts': posts, 

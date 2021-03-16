@@ -1,17 +1,15 @@
 {% extends 'base.html' %}
 {% block content  %}
 
-<h1>Post</h1>
+<h3>{{ post.city.name }}</h3>
 
-<div class="row">
-  <div class="col s6">
-    <div class="card">
-      <div class="card-content">
-        <p>{{ post.title }}{{ post.city.name }}</p>
-        <p>{{ post.body }}</p>
-      </div>
-    </div>
+
+<div class="card">
+  <div class="card-content">
+    <p class="card-title">{{ post.title }} - <small>Posted by: {{post.user.username}}</small></p>
+    <p>{{ post.body }}</p>
   </div>
 </div>
+
 
 {% endblock content  %}
