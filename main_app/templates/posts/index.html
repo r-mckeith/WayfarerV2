@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content  %}
+
+<p>{{ user }}</p>
+<p>{{ user.profile.first_name }} {{user.profile.last_name }}</p>
+<p>{{ user.date_joined }}</p>
+<p>{{ user.profile.current_city }}</p>
+
+<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Edit Profile</h4>
+    <form action="{% url 'profile_edit' %}" method="POST">
+    {% csrf_token %}
+      {{ profile_form.as_p }}
+    </div>
+    <div class="modal-footer">
+      <input type="submit" value="Update">
+    </form>
+    </div>
+  </div>
+
+{% for post in posts %}
+  <div class="card">
+    <a href="{% url 'post_show' post.id %}">
+      <div class="card-content">
+        <span class="card-title">{{ post.title }} {{ post.city.name }} </span>
+        <p>{{ post.body }}</p>
+      </div>
+    </a>
+  </div>
+{% endfor %}
+
+<script>
+  const edit_modal = document.querySelectorAll('.modal');
+  M.Modal.init(edit_modal);
+</script>
+
+{% endblock content  %}
