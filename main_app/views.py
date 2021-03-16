@@ -6,9 +6,9 @@ from .forms import PostForm
 def home(request):
   return render(request, 'home.html')
 
-def posts_index(request):
+def posts_index(request, ):
   posts = Post.objects.all()
-  return render(request, 'posts/index.html', { 'posts': posts})
+  return render(request, 'posts/index.html', { 'posts': posts,})
 
 def post_show(request, post_id):
   post = Post.objects.get(id=post_id)
