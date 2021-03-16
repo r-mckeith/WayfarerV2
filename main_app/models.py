@@ -16,3 +16,12 @@ class Post(models.Model):
 
   def __str__(self):
     return f'{self.title}, {self.city}'
+
+class Profile(models.Model):
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  current_city = models.CharField(max_length=50)
+  first_name = models.CharField(max_length=50)
+  last_name = models.CharField(max_length=50)
+
+  def __str__(self):
+    return f'{self.first_name} {self.last_name} is from {self.current_city}'
