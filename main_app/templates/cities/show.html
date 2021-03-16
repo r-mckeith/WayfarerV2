@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>This is a city show page</h1>
+{{ city.name }}
+
+ <form method="POST" action="{% url 'post_new' %}">
+  {% csrf_token %}
+  {{ post_form.as_p }}
+  <input type="submit" class="btn" value="Add Post">
+  <input hidden type="text" class="btn" value="{{ city.id }}" name="cityId">
+</form> 
+
+{% endblock content %}

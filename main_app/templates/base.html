@@ -7,6 +7,15 @@
   <title>Wayfarer</title>
 </head>
 <body>
+<ul class="right">
+  {% comment %} <li><a href="{% url 'about' %}">About</a></li> {% endcomment %}
+  {% if user.is_authenticated %}
+    <li><a href="{% url 'posts_index' %}">View All Posts</a></li>
+    <li><a href="{% url 'logout' %}">Log Out</a></li>
+  {% else %}
+    <li><a href="{% url 'login' %}">Log In</a></li>
+  {% endif %}
+</ul>
 {% block content  %}
 {% endblock content %}
 
