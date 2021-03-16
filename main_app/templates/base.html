@@ -19,6 +19,11 @@
 <body>
 <nav>
   <div class="nav-wrapper">
+
+    <ul>
+      <li class="left username">{{user}}</li>
+    </ul>
+
     <ul class="right">
       {% if user.is_authenticated %}
         <li><a href="{% url 'profile' user.id %}">Profile</a></li>
