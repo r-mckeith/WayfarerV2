@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -39,7 +40,8 @@ def post_new(request):
 
 def post_delete(request, post_id):
   Post.objects.get(id=post_id).delete()
-  return redirect('profile_login')
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+  # return redirect('profile_login')
 
 def cities_index(request):
   return render(request, 'cities/index.html')
