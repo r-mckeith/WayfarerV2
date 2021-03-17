@@ -41,7 +41,6 @@ def post_new(request):
 def post_delete(request, post_id):
   Post.objects.get(id=post_id).delete()
   return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-  # return redirect('profile_login')
 
 def cities_index(request):
   return render(request, 'cities/index.html')
