@@ -1,0 +1,16 @@
+.username {
+    margin-left: 1em;
+}
+
+body {
+    background-color: bisque;
+}
+
+.profile-card {
+    position: relative;
+}
+.edit-btn-profile {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

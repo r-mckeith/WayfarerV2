@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content  %}
+
+
+  <div class="row">
+    <div class="card col s6 profile-card">
+      <div class="card-content">
+        <p>{{ user.profile.first_name }} {{user.profile.last_name }}</p>
+        <p>{{ user.profile.current_city }}</p>
+        <p><small>Member since: {{ user.date_joined }}</small></p>
+      </div>
+      {% comment %} MODAL TRIGGER - EDIT PROFILE {% endcomment %}
+      <a class="btn modal-trigger edit-btn-profile" href="#modal1"><i class="material-icons">edit</i></a>
+    </div>
+  </div>
+
+
+
+
+{% comment %} MODAL BODY - EDIT PROFILE {% endcomment %}
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Edit Profile</h4>
+    <form action="{% url 'profile_edit' %}" method="POST">
+    {% csrf_token %}
+      {{ profile_form.as_p }}
+    </div>
+    <div class="modal-footer">
+      <input type="submit" value="Update">
+    </form>
+    </div>
+  </div>
+
+{% comment %} RENDER EVERY POST - MODAL TRIGGER {% endcomment %}
+{% for post in posts %}
+
+  <div class="card">
+    <div class="card-content">
+
+      <p class="card-title"><a class="modal-trigger" href="#post-modal{{post.id}}">{{ post.title }}</a> - <small>Posted by: <a href="{% url 'profile' post.user.id %}">{{post.user.username}}</a></small></p>
+      <p>{{ post.body|truncatechars_html:200 }}</p>
+
+    </div>
+  </div>
+
+
+{% comment %} POST SHOW - MODAL BODY {% endcomment %}
+<div id="post-modal{{post.id}}" class="modal">
+  <div class="modal-content">
+
+    <div class="card">
+      <div class="card-content">
+        <p class="card-title">{{ post.title }} - <small>Posted by: {{user}}</small></p>
+        <p>{{ post.body }}</p>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+
+{% endfor %}
+
+<script>
+  const edit_modal = document.querySelectorAll('.modal');
+  M.Modal.init(edit_modal);
+</script>
+
+{% endblock content  %}
