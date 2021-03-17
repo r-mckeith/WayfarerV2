@@ -31,27 +31,6 @@
     </div>
   </div>
 
-
-{% endfor %}
-
-<script>
-  const edit_modal = document.querySelectorAll('.modal');
-  M.Modal.init(edit_modal);
-</script>
-
-{% endblock %}
-
-
-{% comment %} {% for post in city.post_set.all %}
-
-  <div class="card">
-    <div class="card-content">
-    <p>{{ post.title }}</p>
-    <p>{{ post.body|truncatechars_html:200 }}</p>
-
-    </div>
-  </div>
-
 {% endfor %}
 
  <form method="POST" action="{% url 'post_new' %}">
@@ -61,4 +40,9 @@
   <input hidden type="text" class="btn" value="{{ city.id }}" name="cityId">
 </form> 
 
-{% endblock content %} {% endcomment %}
+<script>
+  const edit_modal = document.querySelectorAll('.modal');
+  M.Modal.init(edit_modal);
+</script>
+
+{% endblock content %} 

@@ -39,7 +39,7 @@ def post_new(request):
     new_post.user = request.user
     new_post.city_id = request.POST['cityId']
     new_post.save()
-    return redirect('profile')
+    return redirect('city_show', city_id=new_post.city_id)
   else:
     return render(request, 'posts/new.html', { 'post_form': post_form })
 
