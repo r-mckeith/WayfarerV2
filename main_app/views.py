@@ -37,6 +37,10 @@ def post_new(request):
   else:
     return render(request, 'posts/new.html', { 'post_form': post_form })
 
+def post_delete(request, post_id):
+  Post.objects.get(id=post_id).delete()
+  return redirect('profile_login')
+
 def cities_index(request):
   return render(request, 'cities/index.html')
 
