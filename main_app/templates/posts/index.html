@@ -9,8 +9,10 @@
         <p>{{ profile.current_city }}</p>
         <p><small>Member since: {{ user.date_joined }}</small></p>
       </div>
-      {% comment %} MODAL TRIGGER - EDIT PROFILE {% endcomment %}
-      <a class="btn modal-trigger edit-btn-profile" href="#modal1"><i class="material-icons">edit</i></a>
+      {% if profile.user.id == user.id %}
+        {% comment %} MODAL TRIGGER - EDIT PROFILE {% endcomment %}
+        <a class="btn modal-trigger edit-btn-profile" href="#modal1"><i class="material-icons">edit</i></a>
+      {% endif %}
     </div>
   </div>
 
@@ -40,14 +42,16 @@
       <p class="card-title"><a class="modal-trigger" href="#post-modal{{post.id}}">{{ post.title }}</a> - <small>Posted by: <a href="{% url 'profile' post.user.id %}">{{post.user.username}}</a></small></p>
       <p>{{ post.body|truncatechars_html:200 }}</p>
 
-      
-      {% comment %} EDIT-POST-MODAL TRIGGER {% endcomment %}
-      <button class="modal-trigger" href="#post-edit-modal{{post.id}}">Edit</button>
+      {% if post.user.id == user.id %}
+        {% comment %} EDIT-POST-MODAL TRIGGER {% endcomment %}
+        <button class="modal-trigger" href="#post-edit-modal{{post.id}}">Edit</button>
 
-      <form action="{% url 'post_delete' post.id %}" method="POST" onclick="return confirm('Are you sure you want to delete \'{{post.title}}\'?')">
-        {% csrf_token %}
-        <input type="submit" value="Delete">
-      </form>
+        {% comment %} DELETE POST FORM {% endcomment %}
+        <form action="{% url 'post_delete' post.id %}" method="POST" onclick="return confirm('Are you sure you want to delete \'{{post.title}}\'?')">
+          {% csrf_token %}
+          <input type="submit" value="Delete">
+        </form>
+      {% endif %}
 
     </div>
   </div>

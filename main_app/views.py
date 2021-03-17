@@ -36,14 +36,11 @@ def profile(request, user_id):
 def profile_edit(request):
   profile = Profile.objects.get(user=request.user)
   profile_form = ProfileForm(request.POST or None, instance=profile)
-  if request.user == profile.user:
-    if request.POST and profile_form.is_valid():
-      profile_form.save()
-      return redirect('profile_login')
-    else:
-      return HttpResponse('invalid edit')
+  if request.POST and profile_form.is_valid():
+    profile_form.save()
+    return redirect('profile_login')
   else:
-    return HttpResponse('you are not authorized to edit that profile!')
+    return HttpResponse('invalid edit')
 
 
 
