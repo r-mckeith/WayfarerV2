@@ -5,6 +5,9 @@
 
 <div class="background-image" style="background-image: url('{{city.photo_url}}')"></div>
 
+{% comment %} ADD POST MODAL TRIGGER {% endcomment %}
+<button class="modal-trigger btn" href="#post-new-modal">Add Post</button> 
+
 {% comment %} RENDER EVERY POST {% endcomment %}
 {% for post in posts %}
 
@@ -62,17 +65,26 @@
   </div>
 </div>
 
-
-
-
 {% endfor %}
 
- <form method="POST" action="{% url 'post_new' %}">
-  {% csrf_token %}
-  {{ post_form.as_p }}
-  <input type="submit" class="btn" value="Add Post">
-  <input hidden type="text" class="btn" value="{{ city.id }}" name="cityId">
-</form> 
+{% comment %} ADD POST - MODAL BODY {% endcomment %}
+<div id="post-new-modal" class="modal">
+  <div class="modal-content">
+
+    <div class="card">
+      <div class="card-content">
+        <h4>Add Post</h4>
+        <form method="POST" action="{% url 'post_new' %}">
+          {% csrf_token %}
+          {{ post_form.as_p }}
+          <input type="submit" class="btn" value="Add Post">
+          <input hidden type="text" class="btn" value="{{ city.id }}" name="cityId">
+        </form> 
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <script>
   const edit_modal = document.querySelectorAll('.modal');
