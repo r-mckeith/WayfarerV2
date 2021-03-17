@@ -11,13 +11,7 @@ def home(request):
   return render(request, 'home.html')
 
 def profile_login(request):
-  posts = Post.objects.filter(user=request.user)
-  profile = Profile.objects.get(user=request.user)
-  profile_form = ProfileForm(instance=profile)
-  return render(request, 'posts/index.html', { 
-    'posts': posts, 
-    'profile_form': profile_form
-    })
+  return redirect('profile', user_id=request.user.id)
 
 def profile(request, user_id):
   posts = Post.objects.filter(user_id=user_id)
