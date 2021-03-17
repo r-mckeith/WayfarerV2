@@ -3,7 +3,10 @@
 }
 
 body {
-    background-color: bisque;
+    /* background: url("https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1007&q=80") 50% 0 no-repeat fixed;
+    color: white;
+    height: 650px;
+    padding: 100px 0 0 0; */
 }
 
 .profile-card {
@@ -13,4 +16,10 @@ body {
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+.background-image {
+    color: white;
+    height: 650px;
+    padding: 100px 0 0 0;
 }

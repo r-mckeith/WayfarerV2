@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class City(models.Model):
   name = models.CharField(max_length=100, unique=True)
+  photo_url = models.CharField(max_length=500)
 
   def __str__(self):
     return self.name
