@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -11,13 +12,7 @@ def home(request):
   return render(request, 'home.html')
 
 def profile_login(request):
-  posts = Post.objects.filter(user=request.user)
-  profile = Profile.objects.get(user=request.user)
-  profile_form = ProfileForm(instance=profile)
-  return render(request, 'posts/index.html', { 
-    'posts': posts, 
-    'profile_form': profile_form
-    })
+  return redirect('profile', user_id=request.user.id)
 
 def profile(request, user_id):
   posts = Post.objects.filter(user_id=user_id)
@@ -39,9 +34,13 @@ def post_new(request):
     new_post.user = request.user
     new_post.city_id = request.POST['cityId']
     new_post.save()
-    return redirect('profile')
+    return redirect('city_show', city_id=new_post.city_id)
   else:
     return render(request, 'posts/new.html', { 'post_form': post_form })
+
+def post_delete(request, post_id):
+  Post.objects.get(id=post_id).delete()
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def cities_index(request):
   return render(request, 'cities/index.html')
@@ -75,7 +74,7 @@ def profile_edit(request):
   profile_form = ProfileForm(request.POST or None, instance=profile)
   if request.POST and profile_form.is_valid():
     profile_form.save()
-    return redirect('profile')
+    return redirect('profile_login')
   else:
     return HttpResponse('invalid edit')
     
