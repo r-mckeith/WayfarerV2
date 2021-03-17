@@ -15,7 +15,7 @@ def profile_login(request):
   return redirect('profile', user_id=request.user.id)
 
 def profile(request, user_id):
-  posts = Post.objects.filter(user_id=user_id)
+  posts = Post.objects.filter(user_id=user_id).order_by('-created_at')
   profile = Profile.objects.get(user_id=user_id)
   profile_form = ProfileForm(instance=profile)
   post_form = PostForm()
@@ -61,9 +61,11 @@ def cities_index(request):
 def city_show(request, city_id):
   post_form = PostForm(request.POST or None)
   city = City.objects.get(id=city_id)
+  posts = Post.objects.filter(city_id=city_id).order_by('-created_at')
   return render(request, 'cities/show.html', { 
     'city': city,
-    'post_form': post_form
+    'post_form': post_form,
+    'posts': posts
     })
 
 def signup(request):
