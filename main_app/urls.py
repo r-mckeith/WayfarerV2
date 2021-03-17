@@ -11,4 +11,4 @@ urlpatterns = [
   path('cities/', views.cities_index, name='cities_index'),
   path('cities/<int:city_id>/', views.city_show, name='city_show'),
   path('accounts/signup/', views.signup, name='signup'),
-]
+] 

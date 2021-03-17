@@ -4,6 +4,56 @@
 <h1>This is a city show page</h1>
 {{ city.name }}
 
+{% comment %} RENDER EVERY POST - MODAL TRIGGER {% endcomment %}
+{% for post in city.post_set.all %}
+
+  <div class="card">
+    <div class="card-content">
+
+      <p class="card-title"><a class="modal-trigger" href="#post-modal{{post.id}}">{{ post.title }}</a> - <small>Posted by: <a href="{% url 'profile' post.user.id %}">{{post.user.username}}</a></small></p>
+      <p>{{ post.body|truncatechars_html:200 }}</p>
+
+    </div>
+  </div>
+
+
+{% comment %} POST SHOW - MODAL BODY {% endcomment %}
+<div id="post-modal{{post.id}}" class="modal">
+  <div class="modal-content">
+
+    <div class="card">
+      <div class="card-content">
+        <p class="card-title">{{ post.title }} - <small>Posted by: {{post.user.username}}</small></p>
+        <p>{{ post.body }}</p>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+
+{% endfor %}
+
+<script>
+  const edit_modal = document.querySelectorAll('.modal');
+  M.Modal.init(edit_modal);
+</script>
+
+{% endblock %}
+
+
+{% comment %} {% for post in city.post_set.all %}
+
+  <div class="card">
+    <div class="card-content">
+    <p>{{ post.title }}</p>
+    <p>{{ post.body|truncatechars_html:200 }}</p>
+
+    </div>
+  </div>
+
+{% endfor %}
+
  <form method="POST" action="{% url 'post_new' %}">
   {% csrf_token %}
   {{ post_form.as_p }}
@@ -11,4 +61,4 @@
   <input hidden type="text" class="btn" value="{{ city.id }}" name="cityId">
 </form> 
 
-{% endblock content %}
+{% endblock content %} {% endcomment %}

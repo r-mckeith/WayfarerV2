@@ -75,7 +75,7 @@ def profile_edit(request):
   profile_form = ProfileForm(request.POST or None, instance=profile)
   if request.POST and profile_form.is_valid():
     profile_form.save()
-    return redirect('profile')
+    return redirect('profile_login')
   else:
     return HttpResponse('invalid edit')
     
