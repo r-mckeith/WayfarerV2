@@ -15,12 +15,14 @@ def profile_login(request):
   return redirect('profile', user_id=request.user.id)
 
 def profile(request, user_id):
-  posts = Post.objects.filter(user_id=user_id)
+  posts = Post.objects.filter(user_id=user_id).order_by('-created_at')
   profile = Profile.objects.get(user_id=user_id)
   profile_form = ProfileForm(instance=profile)
+  post_form = PostForm()
   return render(request, 'posts/index.html', { 
     'posts': posts, 
-    'profile_form': profile_form
+    'profile_form': profile_form,
+    'post_form': post_form
     })
 
 def post_show(request, post_id):
@@ -38,6 +40,17 @@ def post_new(request):
   else:
     return render(request, 'posts/new.html', { 'post_form': post_form })
 
+def post_edit(request, post_id):
+  post = Post.objects.get(id=post_id)
+  post_form = PostForm(request.POST or None, instance=post)
+  if request.POST and post_form.is_valid():
+    post_form.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+  else:
+    return HttpResponse('invalid edit')
+
+
+
 def post_delete(request, post_id):
   Post.objects.get(id=post_id).delete()
   return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -48,9 +61,11 @@ def cities_index(request):
 def city_show(request, city_id):
   post_form = PostForm(request.POST or None)
   city = City.objects.get(id=city_id)
+  posts = Post.objects.filter(city_id=city_id).order_by('-created_at')
   return render(request, 'cities/show.html', { 
     'city': city,
-    'post_form': post_form
+    'post_form': post_form,
+    'posts': posts
     })
 
 def signup(request):
