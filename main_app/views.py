@@ -42,6 +42,9 @@ def profile_edit(request):
       return redirect('profile_login')
     else:
       return HttpResponse('invalid edit')
+  else:
+    return HttpResponse('you are not authorized to edit that profile!')
+
 
 
 
@@ -66,16 +69,23 @@ def post_new(request):
 def post_edit(request, post_id):
   post = Post.objects.get(id=post_id)
   post_form = PostForm(request.POST or None, instance=post)
-  if request.POST and post_form.is_valid():
-    post_form.save()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+  if request.user == post.user:
+    if request.POST and post_form.is_valid():
+      post_form.save()
+      return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    else:
+      return HttpResponse('invalid edit')
   else:
-    return HttpResponse('invalid edit')
+    return HttpResponse('you are not authorized to edit that!')
 
 @login_required
 def post_delete(request, post_id):
-  Post.objects.get(id=post_id).delete()
-  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+  post = Post.objects.get(id=post_id)
+  if request.user == post.user:
+    Post.objects.get(id=post_id).delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+  else:
+    return HttpResponse('you are not authorized to delete that!')
 
 def cities_index(request):
   return render(request, 'cities/index.html')
