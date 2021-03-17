@@ -78,7 +78,7 @@
           {% csrf_token %}
           {{ post_form.as_p }}
           <input type="submit" class="btn" value="Add Post">
-          <input hidden type="text" class="btn" value="{{ city.id }}" name="cityId">
+          <input type="hidden" class="btn" value="{{ city.id }}" name="cityId">
         </form> 
       </div>
     </div>

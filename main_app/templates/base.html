@@ -48,8 +48,22 @@
     {% endfor %}
       <li class="divider" tabindex="-1"></li>
       <li><a href="#!">View All Cities</a></li>
-      <li><a href="#!"> + Add a City</a></li>
+      <li> <a class="modal-trigger" href="#add-city-modal">+ Add A City</a></li>
   </ul>
+
+<!-- ADD CITY - MODAL BODY -->
+  <div id="add-city-modal" class="modal">
+    <div class="modal-content">
+      <h4>Add A City</h4>
+      <form action="{% url 'city_new' %}" method="POST">
+        {% csrf_token %}
+        {{city_form.as_p}}
+        <div class="modal-footer">
+          <input type="submit" value="Add City">
+        </div>
+      </form>
+    </div>
+  </div>
 
 <div class="container">
   {% block content  %}

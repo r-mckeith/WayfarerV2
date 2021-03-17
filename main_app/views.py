@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Post, City, Profile
-from .forms import PostForm, ProfileForm
+from .forms import PostForm, ProfileForm, CityForm
 from django.http import HttpResponse
 
 # Create your views here.
@@ -20,11 +20,13 @@ def profile(request, user_id):
   profile_form = ProfileForm(instance=profile)
   post_form = PostForm()
   cities = City.objects.all()
+  city_form = CityForm()
   return render(request, 'posts/index.html', { 
     'posts': posts, 
     'profile_form': profile_form,
     'post_form': post_form,
-    'cities': cities
+    'cities': cities,
+    'city_form': city_form
     })
 
 def post_show(request, post_id):
@@ -60,16 +62,24 @@ def post_delete(request, post_id):
 def cities_index(request):
   return render(request, 'cities/index.html')
 
+def city_new(request):
+  city_form = CityForm(request.POST or None)
+  if request.POST and city_form.is_valid():
+    new_city = city_form.save()
+    return redirect('city_show', city_id=new_city.id)
+
 def city_show(request, city_id):
   post_form = PostForm(request.POST or None)
   city = City.objects.get(id=city_id)
   cities = City.objects.all()
+  city_form = CityForm()
   posts = Post.objects.filter(city_id=city_id).order_by('-created_at')
   return render(request, 'cities/show.html', { 
     'city': city,
     'cities': cities,
     'post_form': post_form,
-    'posts': posts
+    'posts': posts,
+    'city_form': city_form
     })
 
 def signup(request):
