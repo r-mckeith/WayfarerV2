@@ -19,10 +19,12 @@ def profile(request, user_id):
   profile = Profile.objects.get(user_id=user_id)
   profile_form = ProfileForm(instance=profile)
   post_form = PostForm()
+  cities = City.objects.all()
   return render(request, 'posts/index.html', { 
     'posts': posts, 
     'profile_form': profile_form,
-    'post_form': post_form
+    'post_form': post_form,
+    'cities': cities
     })
 
 def post_show(request, post_id):
@@ -61,9 +63,11 @@ def cities_index(request):
 def city_show(request, city_id):
   post_form = PostForm(request.POST or None)
   city = City.objects.get(id=city_id)
+  cities = City.objects.all()
   posts = Post.objects.filter(city_id=city_id).order_by('-created_at')
   return render(request, 'cities/show.html', { 
     'city': city,
+    'cities': cities,
     'post_form': post_form,
     'posts': posts
     })
