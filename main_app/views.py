@@ -11,9 +11,11 @@ from django.http import HttpResponse
 def home(request):
   return render(request, 'home.html')
 
+@login_required
 def profile_login(request):
   return redirect('profile', user_id=request.user.id)
 
+@login_required
 def profile(request, user_id):
   posts = Post.objects.filter(user_id=user_id).order_by('-created_at')
   profile = Profile.objects.get(user_id=user_id)
@@ -22,17 +24,33 @@ def profile(request, user_id):
   cities = City.objects.all()
   city_form = CityForm()
   return render(request, 'posts/index.html', { 
-    'posts': posts, 
+    'posts': posts,
+    'profile': profile, 
     'profile_form': profile_form,
     'post_form': post_form,
     'cities': cities,
     'city_form': city_form
     })
 
+@login_required
+def profile_edit(request):
+  profile = Profile.objects.get(user=request.user)
+  profile_form = ProfileForm(request.POST or None, instance=profile)
+  if request.user == profile.user:
+    if request.POST and profile_form.is_valid():
+      profile_form.save()
+      return redirect('profile_login')
+    else:
+      return HttpResponse('invalid edit')
+
+
+
+
 def post_show(request, post_id):
   post = Post.objects.get(id=post_id)
   return render(request, 'posts/show.html', { 'post': post })
 
+@login_required
 def post_new(request):
   post_form = PostForm(request.POST or None)
   if request.POST and post_form.is_valid():
@@ -44,6 +62,7 @@ def post_new(request):
   else:
     return render(request, 'posts/new.html', { 'post_form': post_form })
 
+@login_required
 def post_edit(request, post_id):
   post = Post.objects.get(id=post_id)
   post_form = PostForm(request.POST or None, instance=post)
@@ -53,8 +72,7 @@ def post_edit(request, post_id):
   else:
     return HttpResponse('invalid edit')
 
-
-
+@login_required
 def post_delete(request, post_id):
   Post.objects.get(id=post_id).delete()
   return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -62,6 +80,10 @@ def post_delete(request, post_id):
 def cities_index(request):
   return render(request, 'cities/index.html')
 
+
+
+
+@login_required
 def city_new(request):
   city_form = CityForm(request.POST or None)
   if request.POST and city_form.is_valid():
@@ -97,13 +119,4 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
-
-def profile_edit(request):
-  profile = Profile.objects.get(user=request.user)
-  profile_form = ProfileForm(request.POST or None, instance=profile)
-  if request.POST and profile_form.is_valid():
-    profile_form.save()
-    return redirect('profile_login')
-  else:
-    return HttpResponse('invalid edit')
     
