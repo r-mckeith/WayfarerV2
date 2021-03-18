@@ -38,9 +38,7 @@ def profile_edit(request):
   profile_form = ProfileForm(request.POST or None, instance=profile)
   if request.POST and profile_form.is_valid():
     profile_form.save()
-    return redirect('profile_login')
-  else:
-    return HttpResponse('invalid edit')
+  return redirect('profile_login')
 
 @login_required
 def post_new(request):
@@ -50,7 +48,7 @@ def post_new(request):
     new_post.user = request.user
     new_post.city_id = request.POST['cityId']
     new_post.save()
-    return redirect('city_show', city_id=new_post.city_id)
+  return redirect('city_show', city_id=new_post.city_id)
 
 @login_required
 def post_edit(request, post_id):
@@ -59,20 +57,14 @@ def post_edit(request, post_id):
   if request.user == post.user:
     if request.POST and post_form.is_valid():
       post_form.save()
-      return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    else:
-      return HttpResponse('invalid edit')
-  else:
-    return HttpResponse('you are not authorized to edit that!')
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
 def post_delete(request, post_id):
   post = Post.objects.get(id=post_id)
   if request.user == post.user:
     Post.objects.get(id=post_id).delete()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-  else:
-    return HttpResponse('you are not authorized to delete that!')
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def cities_index(request):
   return render(request, 'cities/index.html')
@@ -82,7 +74,7 @@ def city_new(request):
   city_form = CityForm(request.POST or None)
   if request.POST and city_form.is_valid():
     new_city = city_form.save()
-    return redirect('city_show', city_id=new_city.id)
+  return redirect('city_show', city_id=new_city.id)
 
 def city_show(request, city_id):
   post_form = PostForm(request.POST or None)
