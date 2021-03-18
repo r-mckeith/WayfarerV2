@@ -45,6 +45,23 @@
       </div>
     </div>
 
+    <h3>Comments</h3>
+    {% comment %} COMMENTS {% endcomment %}
+    {% for comment in comments %}
+    {% if comment.post_id == post.id %}
+    <div class="card">
+      <div class="card-content">
+        <p>{{comment.content}}</p>
+        <small>{{comment.user}}</small>
+        <small>{{comment.posted}}</small>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    {% comment %} ADD COMMENT MODAL TRIGGER {% endcomment %}
+    <button class="modal-trigger" href="#comment-add-modal">Add Comment</button>
+
   </div>
 </div>
 

@@ -18,7 +18,7 @@ def profile_login(request):
 @login_required
 def profile(request, user_id):
   posts = Post.objects.filter(user_id=user_id).order_by('-created_at')
-  comments = Comment.objects.all()
+  comments = Comment.objects.all().order_by('-created_at')
   profile = Profile.objects.get(user_id=user_id)
   profile_form = ProfileForm(instance=profile)
   post_form = PostForm()
@@ -94,6 +94,7 @@ def city_new(request):
 
 def city_show(request, city_id):
   post_form = PostForm(request.POST or None)
+  comments = Comment.objects.all().order_by('-created_at')
   city = City.objects.get(id=city_id)
   cities = City.objects.all()
   city_form = CityForm()
@@ -103,7 +104,8 @@ def city_show(request, city_id):
     'cities': cities,
     'post_form': post_form,
     'posts': posts,
-    'city_form': city_form
+    'city_form': city_form,
+    'comments': comments
     })
 
 def signup(request):
