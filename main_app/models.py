@@ -10,7 +10,7 @@ class City(models.Model):
     return self.name
 
 class Post(models.Model):
-  title = models.CharField(max_length=100)
+  title = models.CharField(max_length=200)
   body = models.TextField(max_length=500)
   created_at = models.DateTimeField(auto_now_add=True)
   city = models.ForeignKey(City, on_delete=models.CASCADE)

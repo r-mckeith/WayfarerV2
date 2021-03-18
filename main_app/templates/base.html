@@ -17,6 +17,7 @@
   <title>Wayfarer</title>
 </head>
 <body>
+
 <nav>
   <div class="nav-wrapper">
 
@@ -33,13 +34,45 @@
         <li><a href="{% url 'login' %}">Log In</a></li>
       {% endif %}
     </ul>
+
+    <!-- CITY DROPDOWN TRIGGER -->
+    <ul class="right"><a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Cities</a></ul>
+
   </div>
 </nav>
+
+  <!-- CITY DROPDOWN BODY -->
+  <ul id='dropdown1' class='dropdown-content'>
+    {% for city in cities %}
+      <li><a href="{% url 'city_show' city.id %}">{{city.name}}</a></li>
+    {% endfor %}
+      <li class="divider" tabindex="-1"></li>
+      <li><a href="#!">View All Cities</a></li>
+      <li> <a class="modal-trigger" href="#add-city-modal">+ Add A City</a></li>
+  </ul>
+
+<!-- ADD CITY - MODAL BODY -->
+  <div id="add-city-modal" class="modal">
+    <div class="modal-content">
+      <h4>Add A City</h4>
+      <form action="{% url 'city_new' %}" method="POST">
+        {% csrf_token %}
+        {{city_form.as_p}}
+        <div class="modal-footer">
+          <input type="submit" value="Add City">
+        </div>
+      </form>
+    </div>
+  </div>
+
 <div class="container">
   {% block content  %}
   {% endblock content %}
 </div>
 
-  
+<script>
+    const cityDropDown = document.querySelectorAll('.dropdown-trigger');
+    M.Dropdown.init(cityDropDown);
+</script>
 </body>
 </html>
