@@ -78,9 +78,7 @@ def comment_new(request):
     new_comment.user = request.user
     new_comment.post_id = request.POST['postId']
     new_comment.save()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-  else:
-    return render(request, 'cities/index.html')
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def cities_index(request):
   return render(request, 'cities/index.html')

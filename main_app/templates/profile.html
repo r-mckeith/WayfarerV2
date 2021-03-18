@@ -59,7 +59,7 @@
   </div>
 
 {% comment %} POST SHOW - MODAL BODY {% endcomment %}
-<div id="post-modal{{post.id}}" class="modal">
+<div id="post-modal{{post.id}}" class="modal modal-fixed-footer">
   <div class="modal-content">
 
     <div class="card">
@@ -81,14 +81,14 @@
         <small>{{comment.posted}}</small>
       </div>
     </div>
-    {% endif %}
-    {% endfor %}
-
+    {% endif %} {% endfor %}
+  </div>
+  <div class="modal-footer">
     {% comment %} ADD COMMENT MODAL TRIGGER {% endcomment %}
     <button class="modal-trigger" href="#comment-add-modal">Add Comment</button>
-
-    </div>
   </div>
+</div>
+
 
   {% comment %} POST EDIT - MODAL BODY {% endcomment %}
 <div id="post-edit-modal{{post.id}}" class="modal">
