@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content  %}
 
+
+
   {% comment %} PROFILE CARD INFORMATION {% endcomment %}
   <div class="row">
     <div class="card col s6 profile-card">
@@ -39,7 +41,7 @@
   <div class="card">
     <div class="card-content">
 
-      <p class="card-title"><a class="modal-trigger" href="#post-modal{{post.id}}">{{ post.title }}</a> - <small>Posted by: <a href="{% url 'profile' post.user.id %}">{{post.user.username}}</a></small></p>
+      <p class="card-title"><a class="modal-trigger" href="#post-modal{{post.id}}">{{ post.title }}</a> <small>posted by: <a href="{% url 'profile' post.user.id %}">{{post.user.username}}</a></small></p>
       <p>{{ post.body|truncatechars_html:200 }}</p>
 
       {% if post.user.id == user.id %}
@@ -56,17 +58,34 @@
     </div>
   </div>
 
-
 {% comment %} POST SHOW - MODAL BODY {% endcomment %}
 <div id="post-modal{{post.id}}" class="modal">
   <div class="modal-content">
 
     <div class="card">
       <div class="card-content">
-        <p class="card-title">{{ post.title }} - <small>Posted by: {{user}}</small></p>
+        <p class="card-title">{{ post.title }} <small>posted by: {{user}}</small></p>
         <p>{{ post.body }}</p>
+        <small>{{ post.posted }}</small>
       </div>
     </div>
+
+     <h3>Comments</h3>
+    {% comment %} COMMENTS {% endcomment %}
+    {% for comment in comments %}
+    {% if comment.post_id == post.id %}
+    <div class="card">
+      <div class="card-content">
+        <p>{{comment.content}}</p>
+        <small>{{comment.user}}</small>
+        <small>{{comment.posted}}</small>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    {% comment %} ADD COMMENT MODAL TRIGGER {% endcomment %}
+    <button class="modal-trigger" href="#comment-add-modal">Add Comment</button>
 
     </div>
   </div>
@@ -86,6 +105,30 @@
           </div>
           <div class="modal-footer">
           <input type="submit" value="Update">
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% comment %} MODAL BODY - ADD COMMENT {% endcomment %}
+<div id="comment-add-modal" class="modal">
+  <div class="modal-content">
+
+    <div class="card">
+      <div class="card-content">
+        <h4>Add comment</h4>
+        
+        <form action="{% url 'comment_new' %}" method="POST">
+          {% csrf_token %}
+          <div class="input-field">
+            <textarea class="materialize-textarea" id="new-body" type="text" name="content" data-length="500" maxlength="500" required></textarea>
+          </div>
+          <div class="modal-footer">
+          <input type="hidden" class="btn" value="{{ post.id }}" name="postId">
+          <input type="submit" value="Add Comment">
           </div>
         </form>
       </div>
