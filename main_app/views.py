@@ -23,7 +23,7 @@ def profile(request, user_id):
   post_form = PostForm()
   cities = City.objects.all()
   city_form = CityForm()
-  return render(request, 'posts/index.html', { 
+  return render(request, 'profile.html', { 
     'posts': posts,
     'profile': profile, 
     'profile_form': profile_form,
@@ -42,14 +42,6 @@ def profile_edit(request):
   else:
     return HttpResponse('invalid edit')
 
-
-
-
-
-def post_show(request, post_id):
-  post = Post.objects.get(id=post_id)
-  return render(request, 'posts/show.html', { 'post': post })
-
 @login_required
 def post_new(request):
   post_form = PostForm(request.POST or None)
@@ -59,8 +51,6 @@ def post_new(request):
     new_post.city_id = request.POST['cityId']
     new_post.save()
     return redirect('city_show', city_id=new_post.city_id)
-  else:
-    return render(request, 'posts/new.html', { 'post_form': post_form })
 
 @login_required
 def post_edit(request, post_id):
@@ -86,9 +76,6 @@ def post_delete(request, post_id):
 
 def cities_index(request):
   return render(request, 'cities/index.html')
-
-
-
 
 @login_required
 def city_new(request):
