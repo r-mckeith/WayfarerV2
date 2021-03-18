@@ -77,12 +77,26 @@
     <div class="card">
       <div class="card-content">
         <h4>Add Post</h4>
-        <form method="POST" action="{% url 'post_new' %}">
+        
+        <form action="{% url 'post_new' %}" method="POST">
+          {% csrf_token %}
+          <input type="text" value="{{ post.title }}" name="title" maxlength="200" required>
+          <div class="input-field">
+            <textarea class="materialize-textarea" id="edit-body" type="text" name="body" data-length="500" maxlength="500" required>{{ post.body }}</textarea>
+          </div>
+          <div class="modal-footer">
+          <input type="hidden" class="btn" value="{{ city.id }}" name="cityId">
+          <input type="submit" value="Add Post">
+          </div>
+        </form>
+
+
+        {% comment %} <form method="POST" action="{% url 'post_new' %}">
           {% csrf_token %}
           {{ post_form.as_p }}
           <input type="submit" class="btn" value="Add Post">
           <input type="hidden" class="btn" value="{{ city.id }}" name="cityId">
-        </form> 
+        </form>  {% endcomment %}
       </div>
     </div>
 
@@ -92,6 +106,9 @@
 <script>
   const edit_modal = document.querySelectorAll('.modal');
   M.Modal.init(edit_modal);
+
+  const textNeedCount = document.querySelectorAll('#edit-body');
+  M.CharacterCounter.init(textNeedCount);
 </script>
 
 {% endblock content %} 
