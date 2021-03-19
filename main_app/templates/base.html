@@ -20,11 +20,9 @@
 
 <nav>
   <div class="nav-wrapper">
-
-    <ul>
-      <li class="left username">{{user}}</li>
-    </ul>
-
+      {% if user.is_authenticated %}
+        <ul><li class="left username">{{user}}</li></ul>
+      {% endif %}
     <ul class="right">
       {% if user.is_authenticated %}
         <li><a href="{% url 'profile' user.id %}">Profile</a></li>
@@ -34,22 +32,21 @@
         <li><a href="{% url 'login' %}">Log In</a></li>
       {% endif %}
     </ul>
-
-    <!-- CITY DROPDOWN TRIGGER -->
-    <ul class="right"><a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Cities</a></ul>
-
+    <ul class="right">
+      <li>
+        <!-- CITY SEARCH -->
+        <input type="search" placeholder="search for a city" class="search">
+        <!--CITY DROPDOWN ( CSS GRID)-->
+        <div class="city-wrapper">
+          {% for city in cities %}
+            <a href="{% url 'city_show' city.id %}" style="order: -{{city.post_set.all.count}};" cityName="{{city.name}}" numPosts="{{city.post_set.all.count}}" class="city-option">{{city.name}}<small> (posts: {{city.post_set.all.count}})</small></a>
+          {% endfor %}
+          <a class="modal-trigger" href="#add-city-modal">+ Add A City</a>
+        </div>
+      </li>
+    </ul>
   </div>
 </nav>
-
-  <!-- CITY DROPDOWN BODY -->
-  <ul id='dropdown1' class='dropdown-content'>
-    {% for city in cities %}
-      <li><a href="{% url 'city_show' city.id %}">{{city.name}}</a></li>
-    {% endfor %}
-      <li class="divider" tabindex="-1"></li>
-      <li><a href="#!">View All Cities</a></li>
-      <li> <a class="modal-trigger" href="#add-city-modal">+ Add A City</a></li>
-  </ul>
 
 <!-- ADD CITY - MODAL BODY -->
   <div id="add-city-modal" class="modal">
@@ -71,8 +68,62 @@
 </div>
 
 <script>
-    const cityDropDown = document.querySelectorAll('.dropdown-trigger');
-    M.Dropdown.init(cityDropDown);
+const searchEl = document.querySelector('.search')
+const cityWrapperEl = document.querySelector('.city-wrapper')
+const cityOptionEl = document.querySelectorAll('.city-wrapper .city-option')
+
+{% comment %} document.addEventListener('keydown', (e) => {
+  //if search bar is focused, and if up/down arrow is pressed, cycle through cities
+  if (document.activeElement === searchEl) {
+    if (e.key === 'ArrowUp') {
+      console.log('you pressed arrow up');
+    } else if (e.key === 'ArrowDown') {
+      console.log('You pressed arrow down');
+    }
+  }
+}) {% endcomment %}
+
+
+searchEl.addEventListener('keydown', (e) => {
+  if ("{{cities}}") {
+    setTimeout(() => {
+      //score elements in city dropdown based on search input
+      const inputStr = searchEl.value.toLowerCase()
+      if (inputStr.length !== 0) {
+        let score = 0
+        for (let cityEl of cityOptionEl) {
+          const cityNameLower = cityEl.getAttribute('cityName').toLowerCase()
+          //if input string is in city name, increase score
+          if (cityNameLower.indexOf(inputStr) !== -1) {
+            cityEl.style.order = `-${inputStr.length.toString()}`
+            //highlight matching letters black
+            cityEl.innerHTML = cityNameLower.replace(inputStr, `<span class="blackk">${inputStr}</span>`)
+          } else {
+            //reset score
+            cityEl.style.order = "0"
+            //remove highlight black text
+            cityEl.innerHTML = cityNameLower
+          }
+        }
+      } else {
+        //if search is empty, order cities based on number of posts
+        for (let cityEl of cityOptionEl) {
+          cityEl.style.order = `-${cityEl.getAttribute('numposts')}`
+        }
+      }
+    },20)
+  }
+})
+
+//make city dropdown menu appear when search bar is focused, otherwise hide it
+searchEl.addEventListener('focusin', () => {
+  cityWrapperEl.style.display = 'grid'
+})
+searchEl.addEventListener('focusout', () => {
+  setTimeout(() => {
+    cityWrapperEl.style.display = 'none'
+  }, 150)
+})
 </script>
 </body>
 </html>

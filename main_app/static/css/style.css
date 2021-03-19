@@ -1,12 +1,37 @@
 .username {
     margin-left: 1em;
 }
-/* .search {
+
+
+
+/* SEARCH BAR (base.html) */
+.search {
     background-color: white !important;
     border-radius: 10px !important;
     padding-left: 5px !important;
-    margin-right: 1em !important;
-} */
+    margin-right: 10px !important;
+    height: 35px !important;
+    width: 200px !important;
+}
+.blackk {
+    color: black !important;
+}
+.city-wrapper {
+    display: none;
+    box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);
+}
+.city-wrapper > a {
+    color: gray;
+    text-transform: lowercase;
+    background: #eee;
+    font-size: 20px;
+    display: inline;
+}
+.city-wrapper > a:hover {
+    background: #ccc;
+}
+
+
 
 body {
     /* background: url("https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1007&q=80") 50% 0 no-repeat fixed;
