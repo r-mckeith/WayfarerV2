@@ -2,6 +2,14 @@
     margin-left: 1em;
 }
 
+.background-image {
+    color: white;
+    height: 650px;
+    padding: 100px 0 0 0;
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+
 /* SEARCH BAR (base.html) */
 .search {
     background-color: white !important;
@@ -33,16 +41,7 @@
 
 
 
-body {
-    /* background: url("https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1007&q=80") 50% 0 no-repeat fixed;
-    color: white;
-    height: 650px;
-    padding: 100px 0 0 0; */
-}
-
-.relative {
-    position: relative;
-}
+/* PROFILE PAGE */
 .profile-card-flex {
     display: flex;
     flex-direction: row;
@@ -72,14 +71,11 @@ body {
     right: 10px;
 }
 
-.background-image {
-    color: white;
-    height: 650px;
-    padding: 100px 0 0 0;
-    background-repeat:no-repeat;
-    background-size: cover;
-}
 
+/* general */
+.relative {
+    position: relative;
+}
 .hide {
     display: none;
 }
