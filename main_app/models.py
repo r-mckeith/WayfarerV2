@@ -24,21 +24,22 @@ class Post(models.Model):
   title = models.CharField(max_length=200)
   body = models.TextField(max_length=500)
   created_at = models.DateTimeField(auto_now_add=True)
-  check_time = check_time
+  # check_time = check_time
   city = models.ForeignKey(City, on_delete=models.CASCADE)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def __str__(self):
-    return f'{self.title}, {self.city}'
+    return f'{self.title}, {self.city}'  
 
   def posted(self):
     return check_time(self)
 
 class Comment(models.Model):
-  post = models.ForeignKey(Post, on_delete=models.CASCADE)
+  post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
   user = models.ForeignKey(User, on_delete = models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
   content = models.TextField()
+  reply = models.ForeignKey('self', on_delete = models.CASCADE, null=True, blank=True)
 
   def __str__(self):
     return f'{self.user}\'s comment'

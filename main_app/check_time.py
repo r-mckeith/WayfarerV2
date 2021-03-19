@@ -6,28 +6,33 @@ def check_time(self):
   now = timezone.now()
   created_at = models.DateTimeField(auto_now_add=True)
   difference = now - self.created_at
-  print("HI", created_at, difference)
-  if difference.days == 0 and difference.seconds >= 0 and difference.seconds <= 60:
+  within_a_minute = difference.days == 0 and difference.seconds >= 0 and difference.seconds <= 60
+  under_an_hour = difference.days == 0 and difference.seconds >= 60 and difference.seconds < 3600
+  under_a_day = difference.days == 0 and difference.seconds >= 3600 and difference.seconds < 86400
+  under_a_month = difference.days >= 1 and difference.days < 30
+  under_a_year = difference.days >= 30 and difference.days < 365
+  
+  if within_a_minute:
     return 'just now'
-  elif difference.days == 0 and difference.seconds >= 60 and difference.seconds < 3600:
+  elif under_an_hour:
     minutes = math.floor(difference.seconds/60)
     if minutes == 1:
-      return '1 minute ago'
+      return ' 1 minute ago'
     else:
       return str(minutes) + 'minutes ago'
-  elif difference.days == 0 and difference.seconds >= 3600 and difference.seconds < 86400:
+  elif under_a_day:
     hours = math.floor(difference.seconds/3600)
     if hours == 1:
-      return '1 hour ago'
+      return ' 1 hour ago'
     else: 
       return str(hours) + 'hours ago'
-  elif difference.days >= 1 and difference.days < 30:
+  elif under_a_month:
     days = difference.days
     if days == 1:
-      return '1 day ago'
+      return ' 1 day ago'
     else: 
       return str(days) + 'days ago'
-  elif difference.days >= 30 and difference.days < 365:
+  elif under_a_year:
     months = math.floor(difference.days/30)
     if months == 1:
       return str(months) + 'month ago'
@@ -36,7 +41,7 @@ def check_time(self):
   else:
     years = math.floor(difference.days/365)
     if years == 1:
-      return '1 year ago'
+      return ' 1 year ago'
     else:
-      return str(years) + 'years ago'
+      return str(years) + ' years ago'
 

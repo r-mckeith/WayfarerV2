@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Post, City, Profile, Comment
-from .forms import PostForm, ProfileForm, CityForm, CommentForm
+from .forms import PostForm, ProfileForm, CityForm, CommentForm, ReplyForm
 from django.http import HttpResponse
 
 # Create your views here.
@@ -80,6 +80,18 @@ def comment_new(request):
     new_comment.save()
   return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+@login_required
+def reply_new(request):
+  print(request.POST, 'HIIIIIIIIIIIIIIIIIIII')
+  reply_form = ReplyForm(request.POST or None)
+  if request.POST and reply_form.is_valid():
+    reply = reply_form.save(commit=False)
+    reply.user = request.user
+    reply.post_id = request.POST['postId']
+    reply.reply_id = request.POST['replyId']
+    reply.save()
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 def cities_index(request):
   return render(request, 'cities/index.html')
 
@@ -90,6 +102,7 @@ def city_new(request):
     new_city = city_form.save()
   return redirect('city_show', city_id=new_city.id)
 
+@login_required
 def city_show(request, city_id):
   post_form = PostForm(request.POST or None)
   comments = Comment.objects.all().order_by('-created_at')
