@@ -28,7 +28,7 @@ class Post(models.Model):
   city = models.ForeignKey(City, on_delete=models.CASCADE)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-  def __str__(self, response):
+  def __str__(self):
     return f'{self.title}, {self.city}'
 
   def posted(self):
