@@ -1,9 +1,25 @@
 <script>
-  let edit_modal = document.querySelectorAll('.modal');
+
+  const edit_modal = document.querySelectorAll('.modal');
   M.Modal.init(edit_modal);
   
-  document.querySelector('.reply-modal-trigger').addEventListener('click', function(event) {
-        let commentId = this.dataset.commentId 
-        document.getElementById('comment-id').setAttribute('value', commentId)
-    });
+  const textNeedCount = document.querySelectorAll('#edit-body');
+  M.CharacterCounter.init(textNeedCount);
+
+  //if a new profile picture is selected, then submit the form
+  const chooseFileEl = document.querySelector('.choose-file')
+  chooseFileEl.addEventListener('change', () => {
+    document.querySelector('.picture-form').submit()
+  })
+
+  //when you click the upload picture icon, open window to browse for file
+  const uploadPictureBtn = document.querySelector('.upload-picture-btn')
+  uploadPictureBtn.addEventListener('click', () => {
+    chooseFileEl.click()
+  })
+
+document.querySelector('.reply-modal-trigger').addEventListener('click', function(event) {
+    let commentId = this.dataset.commentId 
+    document.getElementById('comment-id').setAttribute('value', commentId)
+});
 </script>
