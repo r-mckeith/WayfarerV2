@@ -35,14 +35,15 @@ class Post(models.Model):
     return check_time(self)
 
 class Comment(models.Model):
-  post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+  post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, related_name='comments')
   user = models.ForeignKey(User, on_delete = models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
   content = models.TextField()
-  reply = models.ForeignKey('self', on_delete = models.CASCADE, null=True, blank=True)
+  reply = models.ForeignKey('self', on_delete = models.CASCADE, null=True, blank=True, related_name='replies')
+  is_parent = models.BooleanField(null=True)
 
   def __str__(self):
-    return f'{self.user}\'s comment'
+    return {self.id}
 
   def posted(self):
     return check_time(self)

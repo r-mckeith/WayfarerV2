@@ -11,7 +11,7 @@ from django.http import HttpResponse
 def home(request):
   return render(request, 'home.html')
 
-@login_required
+@login_required   
 def profile_login(request):
   return redirect('profile', user_id=request.user.id)
 
@@ -87,7 +87,7 @@ def reply_new(request):
   if request.POST and reply_form.is_valid():
     reply = reply_form.save(commit=False)
     reply.user = request.user
-    reply.post_id = request.POST['postId']
+    # reply.post_id = request.POST['postId']
     reply.reply_id = request.POST['replyId']
     reply.save()
   return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

@@ -47,22 +47,40 @@
 
     <h3>Comments</h3>
     {% comment %} COMMENTS {% endcomment %}
-    {% for comment in comments %}
-    {% if comment.post_id == post.id %}  
-    <div class="card">
-      <div class="card-content">
-        <p>{{comment.content}}</p>
-        <small>{{comment.user}}</small>
-        <small>{{comment.posted}}</small>
-        <p>{{comment.id}}</p>
-        {% comment %} ADD COMMENT REPLY MODAL TRIGGER {% endcomment %}
-       <button class="modal-trigger reply-modal-trigger" data-comment-id="{{ comment.id }}"href="#reply-modal">Add Reply</button>
-      </div>
-    </div>
-    {% endif %}
+    {% for comment in post.comments.all %}
+
+      {% comment %} {% if comment.post_id == post.id %}   {% endcomment %}
+        <div class="card">
+          <div class="card-content">
+            <p>{{comment.content}}</p>
+            <small>{{comment.user}}</small>  
+            <small>{{comment.posted}}</small>
+          
+            {% comment %} ADD COMMENT REPLY MODAL TRIGGER {% endcomment %}
+            <button class="modal-trigger reply-modal-trigger" data-comment-id="{{ comment.id }}"href="#reply-modal">Add Reply</button>
+
+          </div>
+        </div>
+      {% comment %} {% endif %} {% endcomment %}
+
+      {% for reply in comment.replies.all %}
+        <div class="card">
+          <div class="card-content">
+            <p>{{reply.content}}</p>
+            <small>{{reply.user}}</small>  
+            <small>{{reply.posted}}</small>
+        
+            {% comment %} ADD COMMENT REPLY MODAL TRIGGER {% endcomment %}
+            <button class="modal-trigger reply-modal-trigger" data-comment-id="{{ comment.id }}"href="#reply-modal">Add Reply</button>
+
+          </div>
+        </div>
+      {% endfor %}
     {% endfor %}
+
   </div>
     <div class="modal-footer">
+
       {% comment %} ADD COMMENT MODAL TRIGGER {% endcomment %}
       <button class="modal-trigger" href="#comment-add-modal">Add Comment</button>
 
@@ -84,7 +102,7 @@
           </div>
           <div class="modal-footer">
           <input id="comment-id" type="hidden" class="btn" value="" name="replyId">
-          <input type="hidden" class="btn" value="{{ post.id }}" name="postId">
+          {% comment %} <input type="hidden" class="btn" value="{{ post.id }}" name="postId"> {% endcomment %}
           <input type="submit" value="Add Reply">
           </div>
         </form>
