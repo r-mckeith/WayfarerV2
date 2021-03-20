@@ -12,13 +12,18 @@
 
 /* SEARCH BAR (base.html) */
 .search {
-    background-color: white !important;
+    background-color: rgb(225, 252, 252) !important;
     border-radius: 10px !important;
     padding-left: 5px !important;
     margin-right: 10px !important;
     height: 35px !important;
     width: 200px !important;
 }
+.search:focus {
+    background-color: white !important;
+    border: 2px solid rgb(107, 213, 206) !important;
+}
+
 .blackk {
     color: black !important;
 }
@@ -27,6 +32,8 @@
     box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);
     position: absolute;
     z-index: 1;
+    max-height: 300px;
+    overflow: scroll;
 }
 .city-wrapper > a {
     color: gray;
