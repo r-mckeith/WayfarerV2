@@ -33,6 +33,8 @@
     position: absolute;
     z-index: 1;
     max-height: 300px;
+    width: 200px;
+    white-space: nowrap;
     overflow: scroll;
 }
 .city-wrapper > a {
