@@ -1,4 +1,3 @@
-{% comment %} MODAL BODY - ADD REPLY {% endcomment %}
 <div id="reply-modal" class="modal replyModal">
   <div class="modal-content">
     <div class="card">
@@ -11,7 +10,6 @@
           </div>
           <div class="modal-footer">
           <input id="comment-id" type="hidden" class="btn" value="" name="replyId">
-          {% comment %} <input type="hidden" class="btn" value="{{ post.id }}" name="postId"> {% endcomment %}
           <input type="submit" value="Add Reply">
           </div>
         </form>
@@ -19,7 +17,3 @@
     </div>
   </div>
 </div>
-<script>
-  let elems = document.querySelectorAll('.modal');
-  let instances = M.Modal.init(elems);
-</script>

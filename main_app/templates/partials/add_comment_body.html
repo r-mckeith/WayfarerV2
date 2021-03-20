@@ -10,7 +10,6 @@
           </div>
           <div class="modal-footer">
           <input type="hidden" class="btn" value="{{ post.id }}" name="postId">
-          {% comment %} <input type="hidden" class="btn" value={{ comment.id }} name="commentId"> {% endcomment %}
           <input type="submit" value="Add Comment">
           </div>
         </form>
@@ -18,7 +17,3 @@
     </div>
   </div>
 </div>
-<script>
-  let elems = document.querySelectorAll('.modal');
-  let instances = M.Modal.init(elems);
-</script>

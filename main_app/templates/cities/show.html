@@ -1,30 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1>{{ city.name }}</h1>
-  <div class="background-image" style="background-image: url('{{city.photo_url}}')"></div>
+  {% include '../partials/city_header.html' %}
   {% include '../partials/add_post.html' %}
+
   {% for post in posts %}
+
     {% include '../partials/render_posts.html'  with post=post%}
     {% include '../partials/show_post_body.html' with post=post %}
     {% include '../partials/modal_footer.html' %}
     {% include '../partials/add_comment_body.html' with post=post %}
     {% include '../partials/add_reply_body.html' %}
+
   {% endfor %}
 
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  let edit_modal = document.querySelectorAll('.modal');
-  M.Modal.init(edit_modal);
-  
-  document.querySelector('.reply-modal-trigger').addEventListener('click', function(event) {
-        let commentId = this.dataset.commentId 
-        document.getElementById('comment-id').setAttribute('value', commentId)
-    });
-</script>
+  {% include '../partials/extraneous_divs.html' %}
+  {% include '../partials/script.html' %}
 
 {% endblock content %} 
