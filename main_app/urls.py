@@ -9,6 +9,7 @@ urlpatterns = [
   path('profile/edit/', views.profile_edit, name="profile_edit"),
   path('posts/new/', views.post_new, name="post_new"),
   path('comments/new/', views.comment_new, name="comment_new"),
+  path('reply/new/', views.reply_new, name="reply_new"),
   path('posts/<int:post_id>/edit/', views.post_edit, name="post_edit"),
   path('posts/<int:post_id>/delete/', views.post_delete, name="post_delete"),
   path('cities/', views.cities_index, name='cities_index'),

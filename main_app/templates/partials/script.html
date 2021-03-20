@@ -1,0 +1,9 @@
+<script>
+  let edit_modal = document.querySelectorAll('.modal');
+  M.Modal.init(edit_modal);
+  
+  document.querySelector('.reply-modal-trigger').addEventListener('click', function(event) {
+        let commentId = this.dataset.commentId 
+        document.getElementById('comment-id').setAttribute('value', commentId)
+    });
+</script>

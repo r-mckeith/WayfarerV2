@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-content">
+    {% comment %} SHOW POST MODAL TRIGGER {% endcomment %}
+    <p class="card-title"><a class="modal-trigger" href="#post-modal{{post.id}}">{{ post.title }}</a> <small>posted by: <a href="{% url 'profile' post.user.id %}">{{post.user.username}}</a></small></p>
+    <p>{{ post.body|truncatechars_html:200 }}</p>
+    {% if post.user.id == user.id %}
+      {% include '../partials/edit_post.html' with post=post %}
+      {% include '../partials/delete_post.html' with post=post %}
+    {% endif %}
+  </div>
+</div>

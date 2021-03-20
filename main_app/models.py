@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from .check_time import check_time
 from django.utils import timezone
 import math
 
@@ -23,96 +24,29 @@ class Post(models.Model):
   title = models.CharField(max_length=200)
   body = models.TextField(max_length=500)
   created_at = models.DateTimeField(auto_now_add=True)
+  # check_time = check_time
   city = models.ForeignKey(City, on_delete=models.CASCADE)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def __str__(self):
-    return f'{self.title}, {self.city}'
+    return f'{self.title}, {self.city}'  
 
   def posted(self):
-    now = timezone.now()
-    created_at = models.DateTimeField(auto_now_add=True)
-    difference = now - self.created_at
-    
-    if difference.days == 0 and difference.seconds >= 0 and difference.seconds <= 60:
-      return 'just now'
-    elif difference.days == 0 and difference.seconds >= 60 and difference.seconds < 3600:
-      minutes = math.floor(difference.seconds/60)
-      if minutes == 1:
-        return '1 minute ago'
-      else:
-        return str(minutes) + 'minutes ago'
-    elif difference.days == 0 and difference.seconds >= 3600 and difference.seconds < 86400:
-      hours = math.floor(difference.seconds/3600)
-      if hours == 1:
-        return '1 hour ago'
-      else: 
-        return str(hours) + 'hours ago'
-    elif difference.days >= 1 and difference.days < 30:
-      days = difference.days
-      if days == 1:
-        return '1 day ago'
-      else: 
-        return str(days) + 'days ago'
-    elif difference.days >= 30 and difference.days < 365:
-      months = math.floor(difference.days/30)
-      if months == 1:
-        return str(months) + 'month ago'
-      else:
-        return str(months) + 'months ago'
-    else:
-      years = math.floor(difference.days/365)
-      if years == 1:
-        return '1 year ago'
-      else:
-        return str(years) + 'years ago'
+    return check_time(self)
 
 class Comment(models.Model):
-  post = models.ForeignKey(Post, on_delete=models.CASCADE)
+  post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, related_name='comments')
   user = models.ForeignKey(User, on_delete = models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
   content = models.TextField()
+  reply = models.ForeignKey('self', on_delete = models.CASCADE, null=True, blank=True, related_name='replies')
+  is_parent = models.BooleanField(null=True)
 
-  def __str__(self):
-    return f'{self.user}\'s comment'
+  # def __str__(self):
+  #   return {self.id}
 
   def posted(self):
-    now = timezone.now()
-    created_at = models.DateTimeField(auto_now_add=True)
-    difference = now - self.created_at
-    
-    if difference.days == 0 and difference.seconds >= 0 and difference.seconds <= 60:
-      return 'just now'
-    elif difference.days == 0 and difference.seconds >= 60 and difference.seconds < 3600:
-      minutes = math.floor(difference.seconds/60)
-      if minutes == 1:
-        return '1 minute ago'
-      else:
-        return str(minutes) + ' minutes ago'
-    elif difference.days == 0 and difference.seconds >= 3600 and difference.seconds < 86400:
-      hours = math.floor(difference.seconds/3600)
-      if hours == 1:
-        return '1 hour ago'
-      else: 
-        return str(hours) + ' hours ago'
-    elif difference.days >= 1 and difference.days < 30:
-      days = difference.days
-      if days == 1:
-        return '1 day ago'
-      else: 
-        return str(days) + ' days ago'
-    elif difference.days >= 30 and difference.days < 365:
-      months = math.floor(difference.days/30)
-      if months == 1:
-        return str(months) + ' month ago'
-      else:
-        return str(months) + ' months ago'
-    else:
-      years = math.floor(difference.days/365)
-      if years == 1:
-        return '1 year ago'
-      else:
-        return str(years) + ' years ago'
+    return check_time(self)
 
 class Profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)

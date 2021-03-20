@@ -1,0 +1,28 @@
+{% comment %} PROFILE CARD INFORMATION {% endcomment %}
+  <div class="row">
+    <div class="card col s6 profile-card">
+      <div class="card-content">
+        <p>{{ profile.first_name }} {{profile.last_name }}</p>
+        <p>{{ profile.current_city }}</p>
+        <p><small>Member since: {{ user.date_joined }}</small></p>
+      </div>
+      {% if profile.user.id == user.id %}
+        {% comment %} MODAL TRIGGER - EDIT PROFILE {% endcomment %}
+        <a class="btn modal-trigger edit-btn-profile" href="#modal1"><i class="material-icons">edit</i></a>
+      {% endif %}
+    </div>
+  </div>
+
+    {% comment %} MODAL BODY - EDIT PROFILE {% endcomment %}
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Edit Profile</h4>
+        <form action="{% url 'profile_edit' %}" method="POST">
+        {% csrf_token %}
+          {{ profile_form.as_p }}
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Update">
+        </form>
+        </div>
+      </div>
