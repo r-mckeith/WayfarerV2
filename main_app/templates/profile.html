@@ -1,151 +1,20 @@
 {% extends 'base.html' %}
 {% block content  %}
 
+{% include 'partials/profile_card.html' %}
 
-
-  {% comment %} PROFILE CARD INFORMATION {% endcomment %}
-  <div class="row">
-    <div class="card col s6 profile-card">
-      <div class="card-content">
-        <p>{{ profile.first_name }} {{profile.last_name }}</p>
-        <p>{{ profile.current_city }}</p>
-        <p><small>Member since: {{ user.date_joined }}</small></p>
-      </div>
-      {% if profile.user.id == user.id %}
-        {% comment %} MODAL TRIGGER - EDIT PROFILE {% endcomment %}
-        <a class="btn modal-trigger edit-btn-profile" href="#modal1"><i class="material-icons">edit</i></a>
-      {% endif %}
-    </div>
-  </div>
-
-
-
-
-{% comment %} MODAL BODY - EDIT PROFILE {% endcomment %}
-<div id="modal1" class="modal">
-  <div class="modal-content">
-    <h4>Edit Profile</h4>
-    <form action="{% url 'profile_edit' %}" method="POST">
-    {% csrf_token %}
-      {{ profile_form.as_p }}
-    </div>
-    <div class="modal-footer">
-      <input type="submit" value="Update">
-    </form>
-    </div>
-  </div>
-
-{% comment %} RENDER EVERY POST - MODAL TRIGGER {% endcomment %}
 {% for post in posts %}
 
-  <div class="card">
-    <div class="card-content">
-
-      <p class="card-title"><a class="modal-trigger" href="#post-modal{{post.id}}">{{ post.title }}</a> <small>posted by: <a href="{% url 'profile' post.user.id %}">{{post.user.username}}</a></small></p>
-      <p>{{ post.body|truncatechars_html:200 }}</p>
-
-      {% if post.user.id == user.id %}
-        {% comment %} EDIT-POST-MODAL TRIGGER {% endcomment %}
-        <button class="modal-trigger" href="#post-edit-modal{{post.id}}">Edit</button>
-
-        {% comment %} DELETE POST FORM {% endcomment %}
-        <form action="{% url 'post_delete' post.id %}" method="POST" onclick="return confirm('Are you sure you want to delete \'{{post.title}}\'?')">
-          {% csrf_token %}
-          <input type="submit" value="Delete">
-        </form>
-      {% endif %}
-
-    </div>
-  </div>
-
-{% comment %} POST SHOW - MODAL BODY {% endcomment %}
-<div id="post-modal{{post.id}}" class="modal modal-fixed-footer">
-  <div class="modal-content">
-
-    <div class="card">
-      <div class="card-content">
-        <p class="card-title">{{ post.title }} <small>posted by: {{user}}</small></p>
-        <p>{{ post.body }}</p>
-        <small>{{ post.posted }}</small>
-      </div>
-    </div>
-
-     <h3>Comments</h3>
-    {% comment %} COMMENTS {% endcomment %}
-    {% for comment in comments %}
-    {% if comment.post_id == post.id %}
-    <div class="card">
-      <div class="card-content">
-        <p>{{comment.content}}</p>
-        <small>{{comment.user}}</small>
-        <small>{{comment.posted}}</small>
-      </div>
-    </div>
-    {% endif %} {% endfor %}
-  </div>
-  <div class="modal-footer">
-    {% comment %} ADD COMMENT MODAL TRIGGER {% endcomment %}
-    <button class="modal-trigger" href="#comment-add-modal">Add Comment</button>
-  </div>
-</div>
-
-
-  {% comment %} POST EDIT - MODAL BODY {% endcomment %}
-<div id="post-edit-modal{{post.id}}" class="modal">
-  <div class="modal-content">
-
-    <div class="card">
-      <div class="card-content">
-        <h4>Edit Post</h4>
-        <form action="{% url 'post_edit' post.id %}" method="POST">
-          {% csrf_token %}
-          <input type="text" value="{{ post.title }}" name="title" maxlength="200" required>
-          <div class="input-field">
-            <textarea class="materialize-textarea" id="edit-body" type="text" name="body" data-length="500" maxlength="500" required>{{ post.body }}</textarea>
-          </div>
-          <div class="modal-footer">
-          <input type="submit" value="Update">
-          </div>
-        </form>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-{% comment %} MODAL BODY - ADD COMMENT {% endcomment %}
-<div id="comment-add-modal" class="modal">
-  <div class="modal-content">
-
-    <div class="card">
-      <div class="card-content">
-        <h4>Add comment</h4>
-        
-        <form action="{% url 'comment_new' %}" method="POST">
-          {% csrf_token %}
-          <div class="input-field">
-            <textarea class="materialize-textarea" id="new-body" type="text" name="content" data-length="500" maxlength="500" required></textarea>
-          </div>
-          <div class="modal-footer">
-          <input type="hidden" class="btn" value="{{ post.id }}" name="postId">
-          <input type="submit" value="Add Comment">
-          </div>
-        </form>
-      </div>
-    </div>
-
-  </div>
-</div>
-
+  {% include 'partials/render_posts.html'  with post=post%}
+  {% include 'partials/show_post_body_post.html' with post=post %}
+  {% include 'partials/show_post_body_comments.html' with post=post %}
+  {% include 'partials/modal_footer.html' %}
+  {% include 'partials/add_comment_body.html' with post=post %}
+  {% include 'partials/add_reply_body.html' %}
 
 {% endfor %}
 
-<script>
-  const edit_modal = document.querySelectorAll('.modal');
-  M.Modal.init(edit_modal);
-  
-  const textNeedCount = document.querySelectorAll('#edit-body');
-  M.CharacterCounter.init(textNeedCount);
-</script>
+{% include 'partials/extraneous_divs.html' %}
+{% include 'partials/script.html' %}
 
-{% endblock content  %}
+{% endblock content %} 
