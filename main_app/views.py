@@ -105,11 +105,11 @@ def city_new(request):
 @login_required
 def city_show(request, city_id):
   post_form = PostForm(request.POST or None)
-  comments = Comment.objects.all().order_by('-created_at')
   city = City.objects.get(id=city_id)
   cities = City.objects.all()
   city_form = CityForm()
   posts = Post.objects.filter(city_id=city_id).order_by('-created_at')
+  comments = Comment.objects.all().order_by('-created_at')
   return render(request, 'cities/show.html', { 
     'city': city,
     'cities': cities,

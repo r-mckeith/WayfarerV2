@@ -7,7 +7,8 @@
   {% for post in posts %}
 
     {% include '../partials/render_posts.html'  with post=post%}
-    {% include '../partials/show_post_body.html' with post=post %}
+    {% include '../partials/show_post_body_post.html' with post=post %}
+    {% include '../partials/show_post_body_comments.html' with post=post %}
     {% include '../partials/modal_footer.html' %}
     {% include '../partials/add_comment_body.html' with post=post %}
     {% include '../partials/add_reply_body.html' %}

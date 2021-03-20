@@ -1,14 +1,4 @@
-<div id="post-modal{{post.id}}" class="modal modal-fixed-footer">
-  <div class="modal-content">
-    <div class="card">
-      <div class="card-content">
-        <p class="card-title">{{ post.title }} <small>posted by: {{post.user.username}}</small></p>
-        <p>{{ post.body }}</p>
-        <small>{{ post.posted }}</small>
-      </div>
-    </div>
-    <h3>Comments</h3>
-
+<h3>Comments</h3>
     {% for comment in post.comments.all %}
       <div class="card" id="comment-{{ comment.id}}">
         <div class="card-content" id="comment-{{ comment.id }}">
@@ -20,7 +10,6 @@
         </div>
       </div>
     {% for reply in comment.replies.all %}
-    {% if comment.reply_id == comment.id %}
       <div class="card">
         <div class="card-content">
           <p>{{reply.content}}</p>
@@ -30,6 +19,5 @@
           <button class="modal-trigger reply-modal-trigger" data-comment-id="{{ comment.id }}" data-target="#comment-{{comment.id}} .reply-modal">Add Reply</button>
         </div>
       </div>
-    {% endif %}
   {% endfor %}
 {% endfor %}
