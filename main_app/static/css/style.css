@@ -2,7 +2,13 @@
     margin-left: 1em;
 }
 
-
+.background-image {
+    color: white;
+    height: 650px;
+    padding: 100px 0 0 0;
+    background-repeat:no-repeat;
+    background-size: cover;
+}
 
 /* SEARCH BAR (base.html) */
 .search {
@@ -13,12 +19,23 @@
     height: 35px !important;
     width: 200px !important;
 }
+.search:focus {
+    background-color: white !important;
+    border: 2px solid rgb(107, 213, 206) !important;
+}
+
 .blackk {
     color: black !important;
 }
 .city-wrapper {
     display: none;
     box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);
+    position: absolute;
+    z-index: 1;
+    max-height: 300px;
+    width: 200px;
+    white-space: nowrap;
+    overflow: scroll;
 }
 .city-wrapper > a {
     color: gray;
@@ -33,15 +50,29 @@
 
 
 
-body {
-    /* background: url("https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1007&q=80") 50% 0 no-repeat fixed;
-    color: white;
-    height: 650px;
-    padding: 100px 0 0 0; */
+/* PROFILE PAGE */
+.profile-card-flex {
+    display: flex;
+    flex-direction: row;
 }
-
-.profile-card {
-    position: relative;
+.profile-picture {
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+}
+.profile-info {
+    margin-left: 2rem;
+}
+.upload-picture-btn {
+    width: 20px;
+    height: 30px;
+    padding-left: 5px;
+    padding-right: 22px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 .edit-btn-profile {
     position: absolute;
@@ -49,10 +80,11 @@ body {
     right: 10px;
 }
 
-.background-image {
-    color: white;
-    height: 650px;
-    padding: 100px 0 0 0;
-    background-repeat:no-repeat;
-    background-size: cover;
+
+/* general */
+.relative {
+    position: relative;
+}
+.hide {
+    display: none;
 }

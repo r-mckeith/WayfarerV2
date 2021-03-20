@@ -119,6 +119,7 @@ class Profile(models.Model):
   current_city = models.CharField(max_length=50)
   first_name = models.CharField(max_length=50)
   last_name = models.CharField(max_length=50)
+  photo_url = models.CharField(max_length=200, default="https://s3-us-west-1.amazonaws.com/wayfarer-pp/d80df8.png")
 
   def __str__(self):
-    return f'{self.first_name} {self.last_name} is from {self.current_city}'
+    return f'{self.first_name} {self.last_name} is from {self.current_city} @{self.photo_url}'

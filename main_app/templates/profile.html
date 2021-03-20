@@ -2,14 +2,21 @@
 {% block content  %}
 
 
-
   {% comment %} PROFILE CARD INFORMATION {% endcomment %}
   <div class="row">
-    <div class="card col s6 profile-card">
-      <div class="card-content">
-        <p>{{ profile.first_name }} {{profile.last_name }}</p>
-        <p>{{ profile.current_city }}</p>
-        <p><small>Member since: {{ user.date_joined }}</small></p>
+    <div class="card col s12 m8 xl6 relative">
+      <div class="card-content profile-card-flex">
+        <div class="relative profile-picture" style="background-image: url('{{profile.photo_url}}')">
+          {% comment %} BUTTON - UPLOAD PICTURE {% endcomment %}
+          {% if profile.user_id == user.id %}
+          <button class="btn upload-picture-btn"><i class="material-icons">file_upload</i></button>
+          {% endif %}
+        </div>
+        <div class="profile-info">
+          <p>{{ profile.first_name }} {{profile.last_name }}</p>
+          <p>{{ profile.current_city }}</p>
+          <p><small>Member since: {{ user.date_joined }}</small></p>
+        </div>
       </div>
       {% if profile.user.id == user.id %}
         {% comment %} MODAL TRIGGER - EDIT PROFILE {% endcomment %}
@@ -18,20 +25,28 @@
     </div>
   </div>
 
-
-
+  {% comment %} (HIDDEN) CHANGE PROFILE PICTURE FORM {% endcomment %}
+  {% if profile.user_id == user.id %}
+  <form action="{% url 'add_photo' profile.user_id %}" enctype="multipart/form-data" method="POST" class="picture-form hide">
+      {% csrf_token %}
+      <input type="file" name="photo-file" class="choose-file">
+      <input type="submit">
+  </form>   
+  {% endif %}
 
 {% comment %} MODAL BODY - EDIT PROFILE {% endcomment %}
 <div id="modal1" class="modal">
   <div class="modal-content">
+
     <h4>Edit Profile</h4>
     <form action="{% url 'profile_edit' %}" method="POST">
-    {% csrf_token %}
-      {{ profile_form.as_p }}
-    </div>
-    <div class="modal-footer">
-      <input type="submit" value="Update">
+      {% csrf_token %}
+      {{ profile_form.as_p }}   
+      <div class="modal-footer">
+        <input type="submit" value="Update">
+      </div>
     </form>
+
     </div>
   </div>
 
@@ -141,11 +156,24 @@
 {% endfor %}
 
 <script>
+
   const edit_modal = document.querySelectorAll('.modal');
   M.Modal.init(edit_modal);
   
   const textNeedCount = document.querySelectorAll('#edit-body');
   M.CharacterCounter.init(textNeedCount);
+
+  //if a new profile picture is selected, then submit the form
+  const chooseFileEl = document.querySelector('.choose-file')
+  chooseFileEl.addEventListener('change', () => {
+    document.querySelector('.picture-form').submit()
+  })
+
+  //when you click the upload picture icon, open window to browse for file
+  const uploadPictureBtn = document.querySelector('.upload-picture-btn')
+  uploadPictureBtn.addEventListener('click', () => {
+    chooseFileEl.click()
+  })
 </script>
 
 {% endblock content  %}

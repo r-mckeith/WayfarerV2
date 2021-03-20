@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Post, City, Profile, Comment
 from .forms import PostForm, ProfileForm, CityForm, CommentForm
 from django.http import HttpResponse
+import uuid
+import boto3
 
 # Create your views here.
 def home(request):
@@ -35,6 +37,30 @@ def profile(request, user_id):
     'city_form': city_form,
     'comments': comments
     })
+
+S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
+BUCKET = 'wayfarer-pp'
+@login_required
+def add_photo(request, user_id):
+  # photo-file will be the "name" attribute on the <input type="file">
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+      s3 = boto3.client('s3')
+      # need a unique "key" for S3 / needs image file extension too
+      key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+      # just in case something goes wrong
+      try:
+          s3.upload_fileobj(photo_file, BUCKET, key)
+          # build the full url string
+          url = f"{S3_BASE_URL}{BUCKET}/{key}"
+          # we can assign to cat_id or cat (if you have a cat object)
+          profile = Profile.objects.get(user_id=request.user.id)
+          profile.photo_url = url
+          if user_id == request.user.id:
+            profile.save()
+      except:
+          print('An error occurred uploading file to S3')  
+  return redirect('profile_login')
 
 @login_required
 def profile_edit(request):
@@ -117,7 +143,7 @@ def signup(request):
       login(request, user)
       profile = Profile(first_name = request.POST['first_name'], last_name = request.POST['last_name'], current_city = request.POST['current_city'], user = request.user )
       profile.save()
-      return redirect('profile')
+      return redirect('profile_login')
     else:
       error_message = 'Invalid sign up - try again'
   form = UserCreationForm()
