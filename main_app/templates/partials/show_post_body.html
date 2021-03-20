@@ -20,6 +20,7 @@
         </div>
       </div>
     {% for reply in comment.replies.all %}
+    {% if comment.reply_id == comment.id %}
       <div class="card">
         <div class="card-content">
           <p>{{reply.content}}</p>
@@ -29,5 +30,6 @@
           <button class="modal-trigger reply-modal-trigger" data-comment-id="{{ comment.id }}" data-target="#comment-{{comment.id}} .reply-modal">Add Reply</button>
         </div>
       </div>
+    {% endif %}
   {% endfor %}
 {% endfor %}
