@@ -42,8 +42,8 @@ class Comment(models.Model):
   reply = models.ForeignKey('self', on_delete = models.CASCADE, null=True, blank=True, related_name='replies')
   is_parent = models.BooleanField(null=True)
 
-  # def __str__(self):
-  #   return {self.id}
+  def __str__(self):
+    return {self.id}
 
   def posted(self):
     return check_time(self)

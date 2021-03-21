@@ -1,7 +1,6 @@
 <script>
-
-  const edit_modal = document.querySelectorAll('.modal');
-  M.Modal.init(edit_modal);
+  const modals = document.querySelectorAll('.modal');
+  M.Modal.init(modals);
   
   const textNeedCount = document.querySelectorAll('#edit-body');
   M.CharacterCounter.init(textNeedCount);
@@ -18,8 +17,12 @@
     chooseFileEl.click()
   })
 
-document.querySelector('.reply-modal-trigger').addEventListener('click', function(event) {
-    let commentId = this.dataset.commentId 
+let btns = document.querySelectorAll('.reply-modal-trigger');
+for (var i = 0; i < btns.length; i++) {
+	btns[i].addEventListener('click', function (event) {
+		let commentId = this.dataset.commentId 
     document.getElementById('comment-id').setAttribute('value', commentId)
-});
+	})
+} 
+
 </script>
