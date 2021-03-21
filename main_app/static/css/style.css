@@ -88,3 +88,7 @@
 .hide {
     display: none;
 }
+
+.card-reply { 
+    margin-left: 50px !important; 
+}

@@ -10,7 +10,7 @@
         </div>
       </div>
     {% for reply in comment.replies.all %}
-      <div class="card">
+      <div class="card card-reply">
         <div class="card-content">
           <p>{{reply.content}}</p>
           <small>{{reply.user}}</small>  
