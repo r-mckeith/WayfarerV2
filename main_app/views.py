@@ -9,7 +9,6 @@ from django.http import HttpResponse
 import uuid
 import boto3
 
-# Create your views here.
 def home(request):
   return render(request, 'home.html')
 
@@ -20,7 +19,7 @@ def profile_login(request):
 @login_required
 def profile(request, user_id):
   posts = Post.objects.filter(user_id=user_id).order_by('-created_at')
-  comments = Comment.objects.filter()
+  comments = Comment.objects.all()
   profile = Profile.objects.get(user_id=user_id)
   profile_form = ProfileForm(instance=profile)
   post_form = PostForm()
@@ -42,18 +41,13 @@ S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'wayfarer-pp'
 @login_required
 def add_photo(request, user_id):
-  # photo-file will be the "name" attribute on the <input type="file">
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
       s3 = boto3.client('s3')
-      # need a unique "key" for S3 / needs image file extension too
       key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-      # just in case something goes wrong
       try:
           s3.upload_fileobj(photo_file, BUCKET, key)
-          # build the full url string
           url = f"{S3_BASE_URL}{BUCKET}/{key}"
-          # we can assign to cat_id or cat (if you have a cat object)
           profile = Profile.objects.get(user_id=request.user.id)
           profile.photo_url = url
           if user_id == request.user.id:
@@ -108,7 +102,6 @@ def comment_new(request):
 
 @login_required
 def reply_new(request):
-  print(request.POST, 'HIIIIIIIIIIIIIIIIIIII')
   reply_form = ReplyForm(request.POST or None)
   if request.POST and reply_form.is_valid():
     reply = reply_form.save(commit=False)
@@ -117,9 +110,6 @@ def reply_new(request):
     reply.reply_id = request.POST['replyId']
     reply.save()
   return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-def cities_index(request):
-  return render(request, 'cities/index.html')
 
 @login_required
 def city_new(request):
@@ -135,7 +125,7 @@ def city_show(request, city_id):
   cities = City.objects.all()
   city_form = CityForm()
   posts = Post.objects.filter(city_id=city_id).order_by('-created_at')
-  comments = Comment.objects.all().order_by('-created_at')
+  comments = Comment.objects.all()
   return render(request, 'cities/show.html', { 
     'city': city,
     'cities': cities,
