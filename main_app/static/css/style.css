@@ -1,11 +1,15 @@
+:root {
+    --main-color: rgb(116, 171, 102);
+}
+body {
+    background-color: rgb(188, 206, 145);
+}
+
 .username {
     margin-left: 1em;
 }
 a:hover {
     text-decoration: underline;
-}
-body {
-    background-color: bisque;
 }
 
 /* CITY SHOW PAGE */
@@ -138,7 +142,7 @@ body {
     margin-left: 50px !important; 
 }
 .your-post {
-    border: 2px solid lime;
+    border: 3px solid var(--main-color);
 }
 .btn-edit-post {
     position: absolute;
@@ -149,4 +153,9 @@ body {
     position: absolute;
     top: 50px;
     right: 10px;
+}
+
+/* OVERRIDE MATERIALIZE */
+.nav-wrapper {
+    background-color: var(--main-color);
 }
