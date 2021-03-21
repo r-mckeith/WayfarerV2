@@ -18,7 +18,7 @@
   })
 
 let btns = document.querySelectorAll('.reply-modal-trigger');
-for (var i = 0; i < btns.length; i++) {
+for (let i = 0; i < btns.length; i++) {
 	btns[i].addEventListener('click', function (event) {
 		let commentId = this.dataset.commentId 
     document.getElementById('comment-id').setAttribute('value', commentId)
