@@ -19,25 +19,25 @@ def check_time(self):
     if minutes == 1:
       return ' 1 minute ago'
     else:
-      return str(minutes) + 'minutes ago'
+      return str(minutes) + ' minutes ago'
   elif under_a_day:
     hours = math.floor(difference.seconds/3600)
     if hours == 1:
       return ' 1 hour ago'
     else: 
-      return str(hours) + 'hours ago'
+      return str(hours) + ' hours ago'
   elif under_a_month:
     days = difference.days
     if days == 1:
       return ' 1 day ago'
     else: 
-      return str(days) + 'days ago'
+      return str(days) + ' days ago'
   elif under_a_year:
     months = math.floor(difference.days/30)
     if months == 1:
-      return str(months) + 'month ago'
+      return str(months) + ' month ago'
     else:
-      return str(months) + 'months ago'
+      return str(months) + ' months ago'
   else:
     years = math.floor(difference.days/365)
     if years == 1:

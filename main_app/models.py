@@ -43,7 +43,7 @@ class Comment(models.Model):
   is_parent = models.BooleanField(null=True)
 
   def __str__(self):
-    return f'{self.user}\'s comment'
+    return f'{self.user}\'s comment'  
 
   def posted(self):
     return check_time(self)
