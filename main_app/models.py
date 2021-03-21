@@ -39,11 +39,11 @@ class Comment(models.Model):
   user = models.ForeignKey(User, on_delete = models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
   content = models.TextField()
-  reply = models.ForeignKey('self', on_delete = models.CASCADE, null=True, blank=True, related_name='replies')
+  parent = models.ForeignKey('self', on_delete = models.CASCADE, null=True, blank=True, related_name='replies')
   is_parent = models.BooleanField(null=True)
 
   def __str__(self):
-    return f'{self.user}\'s comment'
+    return f'{self.user}\'s comment'  
 
   def posted(self):
     return check_time(self)
