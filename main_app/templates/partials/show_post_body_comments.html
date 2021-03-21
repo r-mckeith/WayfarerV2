@@ -9,15 +9,15 @@
           <button class="modal-trigger reply-modal-trigger" data-comment-id="{{ comment.id }}" href="#reply-modal">Add Reply</button>
         </div>
       </div>
-    {% for reply in replies %}
+    {% for reply in comment.replies.all %}
       <div class="card">
         <div class="card-content">
           <p>{{reply.content}}</p>
           <small>{{reply.user}}</small>  
           <small>{{reply.posted}}</small>
           {% comment %} ADD REPLY MODAL TRIGGER FROM REPLY {% endcomment %}
-          <button class="modal-trigger reply-modal-trigger" data-comment-id="{{ comment.id }}" data-target="#comment-{{comment.id}} .reply-modal">Add Reply</button>
+          <button class="modal-trigger reply-modal-trigger" data-comment-id="{{ comment.id }}" href="#reply-modal">Add Reply</button>
         </div>
       </div>
   {% endfor %}
-{% endfor %}   
+{% endfor %}
