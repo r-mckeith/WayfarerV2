@@ -48,6 +48,9 @@ class Comment(models.Model):
   def posted(self):
     return check_time(self)
 
+  def ordered(self):
+    return self.order_by('-created_at')
+
 class Profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   current_city = models.CharField(max_length=50)
