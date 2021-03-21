@@ -1,7 +1,14 @@
 .username {
     margin-left: 1em;
 }
+a:hover {
+    text-decoration: underline;
+}
+body {
+    background-color: bisque;
+}
 
+/* CITY SHOW PAGE */
 .background-image {
     color: white;
     height: 650px;
@@ -81,14 +88,52 @@
 }
 
 
-/* general */
+/* COLORS */
+.gray {
+    color: #aaa;
+}
+.dark-gray {
+    color: #555;
+}
+
+
+/* GENERAL */
 .relative {
     position: relative;
 }
 .hide {
     display: none;
 }
+.hover-to-see {
+    opacity: 0.5;
+}
+.hover-to-see:hover {
+    opacity: 1;
+}
 
+
+
+/* SPECIFIC */
+.tiny-profile-picture {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-left: 5px;
+    vertical-align: middle;
+}
 .card-reply { 
     margin-left: 50px !important; 
+}
+.your-post {
+    border: 2px solid lime;
+}
+.btn-edit-post {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.btn-del-post {
+    position: absolute;
+    top: 50px;
+    right: 10px;
 }
