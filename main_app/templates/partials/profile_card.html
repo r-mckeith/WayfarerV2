@@ -5,7 +5,7 @@
         <div class="relative profile-picture" style="background-image: url('{{profile.photo_url}}')">
           {% comment %} BUTTON - UPLOAD PICTURE {% endcomment %}
           {% if profile.user_id == user.id %}
-          <button class="btn upload-picture-btn"><i class="material-icons">file_upload</i></button>
+          <button class="btn-browse-picture"><i class="material-icons">file_upload</i></button>
           {% endif %}
         </div>
         <div class="profile-info">
@@ -16,7 +16,7 @@
       </div>
       {% if profile.user.id == user.id %}
         {% comment %} MODAL TRIGGER - EDIT PROFILE {% endcomment %}
-        <a class="btn modal-trigger edit-btn-profile" href="#modal1"><i class="material-icons">edit</i></a>
+        <button class="modal-trigger edit-btn-profile hover-to-see" href="#modal1"><i class="material-icons">edit</i></button>
       {% endif %}
     </div>
   </div>
