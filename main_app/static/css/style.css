@@ -1,13 +1,37 @@
+:root {
+    --main-color: rgb(116, 171, 102);
+}
+body {
+    background-color: rgb(188, 206, 145);
+}
+
 .username {
     margin-left: 1em;
 }
+a:hover {
+    text-decoration: underline;
+}
 
+/* CITY SHOW PAGE */
 .background-image {
     color: white;
-    height: 650px;
-    padding: 100px 0 0 0;
-    background-repeat:no-repeat;
+    height: 250px;
+    background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
+}
+.city-name {
+    color: rgba(255,255,255,0.75);
+    font-size: 100px;
+    font-family: 'della respira', serif;
+    text-align: center;
+    white-space: nowrap;
+    background-color: rgba(0,0,0,0.5);
+    padding: 70px 0 70px 0;
+}
+.btn-add-post-to-city {
+    margin: 1em 0 0.7em 0;
+    width: 100%;
 }
 
 /* SEARCH BAR (base.html) */
@@ -65,11 +89,11 @@
 .profile-info {
     margin-left: 2rem;
 }
-.upload-picture-btn {
+.btn-browse-picture {
     width: 20px;
     height: 30px;
-    padding-left: 5px;
-    padding-right: 22px;
+    padding-left: 0;
+    padding-right: 23px;
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -81,14 +105,57 @@
 }
 
 
-/* general */
+/* COLORS */
+.gray {
+    color: #aaa;
+}
+.dark-gray {
+    color: #555;
+}
+
+
+/* GENERAL */
 .relative {
     position: relative;
 }
 .hide {
     display: none;
 }
+.hover-to-see {
+    opacity: 0.5;
+}
+.hover-to-see:hover {
+    opacity: 1;
+}
 
+
+
+/* SPECIFIC */
+.tiny-profile-picture {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-left: 5px;
+    vertical-align: middle;
+}
 .card-reply { 
     margin-left: 50px !important; 
+}
+.your-post {
+    border: 3px solid var(--main-color);
+}
+.btn-edit-post {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.btn-del-post {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+}
+
+/* OVERRIDE MATERIALIZE */
+.nav-wrapper {
+    background-color: var(--main-color);
 }
