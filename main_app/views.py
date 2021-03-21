@@ -32,7 +32,7 @@ def profile(request, user_id):
     'profile_form': profile_form,
     'post_form': post_form,
     'comment_form': comment_form,
-    'cities': cities,
+    # 'cities': cities,
     'city_form': city_form,
     'comments': comments
     })
@@ -128,7 +128,7 @@ def city_show(request, city_id):
   comments = Comment.objects.all()
   return render(request, 'cities/show.html', { 
     'city': city,
-    'cities': cities,
+    # 'cities': cities,
     'post_form': post_form,
     'posts': posts,
     'city_form': city_form,
