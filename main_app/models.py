@@ -42,11 +42,14 @@ class Comment(models.Model):
   reply = models.ForeignKey('self', on_delete = models.CASCADE, null=True, blank=True, related_name='replies')
   is_parent = models.BooleanField(null=True)
 
-  # def __str__(self):
-  #   return {self.id}
+  def __str__(self):
+    return f'{self.user}\'s comment'
 
   def posted(self):
     return check_time(self)
+
+  def ordered(self):
+    return self.order_by('-created_at')
 
 class Profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)

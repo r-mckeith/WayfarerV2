@@ -20,7 +20,7 @@ def profile_login(request):
 @login_required
 def profile(request, user_id):
   posts = Post.objects.filter(user_id=user_id).order_by('-created_at')
-  comments = Comment.objects.all().order_by('-created_at')
+  comments = Comment.objects.filter()
   profile = Profile.objects.get(user_id=user_id)
   profile_form = ProfileForm(instance=profile)
   post_form = PostForm()
