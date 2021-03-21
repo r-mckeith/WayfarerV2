@@ -6,7 +6,7 @@
 
 {% for post in posts %}
 
-  {% include '../partials/render_posts.html'  with post=post%}
+  {% include '../partials/render_posts.html'  with post=post %}
   {% include '../partials/show_post_body_post.html' with post=post %}
   {% include '../partials/show_post_body_comments.html' with post=post %}
   {% include '../partials/modal_footer.html' %}
@@ -16,6 +16,6 @@
 {% endfor %}
 
 {% include '../partials/extraneous_divs.html' %}
-{% include '../partials/script.html' %}
+{% include '../partials/script_cities.html' %}
 
 {% endblock content %} 
