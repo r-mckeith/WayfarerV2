@@ -16,6 +16,9 @@ body {
     background-repeat:no-repeat;
     background-size: cover;
 }
+.btn-add-post-to-city {
+    width: 100%;
+}
 
 /* SEARCH BAR (base.html) */
 .search {
