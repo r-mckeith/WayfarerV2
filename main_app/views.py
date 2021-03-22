@@ -128,7 +128,10 @@ def city_new(request):
 @login_required
 def city_show(request, city_id):
   # track if modal has been shown
-  request.session["steps"] -= 1
+  try:
+    request.session["steps"] -= 1
+  except KeyError:
+    request.session["steps"] = 0
   if request.session["steps"] <= 0:
     request.session["modeltoopen"] = ''
     

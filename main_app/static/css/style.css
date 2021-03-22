@@ -131,6 +131,9 @@ a:hover {
 
 
 /* SPECIFIC */
+.height-above-tpp {
+    height: 5px;
+}
 .tiny-profile-picture {
     width: 25px;
     height: 25px;
