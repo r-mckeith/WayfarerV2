@@ -23,7 +23,7 @@ def profile_login(request):
 @login_required
 def profile(request, user_id):
   # track if modal has been shown
-  request.session["steps"] -= 1
+  request.session["steps"] -= 1 
   if request.session["steps"] <= 0:
     request.session["modeltoopen"] = ''
   posts = Post.objects.filter(user_id=user_id).order_by('-created_at')
@@ -131,10 +131,7 @@ def city_new(request):
 @login_required
 def city_show(request, city_id):
   # track if modal has been shown
-  try:
-    request.session["steps"] -= 1
-  except KeyError:
-    request.session["steps"] = 0
+  request.session["steps"] -= 1
   if request.session["steps"] <= 0:
     request.session["modeltoopen"] = ''
     
