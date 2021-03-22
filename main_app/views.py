@@ -128,7 +128,7 @@ def city_new(request):
     new_city = city_form.save()
   return redirect('city_show', city_id=new_city.id)
 
-@login_required
+
 def city_show(request, city_id):
   # track if modal has been shown
   try:
