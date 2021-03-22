@@ -8,8 +8,10 @@
           {% csrf_token %}
           <label>Title:</label>
           <input type="text" value="{{ post.title }}" name="title" required>
-          <label>Description:</label>
-          <input type="text" value="{{ post.body }}" name="body" required>
+          <div class="input-field">
+            <label>Description:</label>
+            <textarea class="materialize-textarea" id="edit-body" type="text" name="body" data-length="500" maxlength="500" required>{{ post.body }}</textarea>
+          </div>
           <div class="modal-footer">
           <input type="submit" value="Update">
           </div>
