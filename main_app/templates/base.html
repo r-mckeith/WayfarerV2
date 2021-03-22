@@ -44,7 +44,9 @@
           {% for city in cities %}
             <a href="{% url 'city_show' city.id %}" style="order: -{{city.post_set.all.count}};" cityName="{{city.name}}" numPosts="{{city.post_set.all.count}}" class="city-option">{{city.name}}</a>
           {% endfor %}
+          {% if user.is_authenticated %}
           <a class="modal-trigger" href="#add-city-modal">+ Add A City</a>
+          {% endif %}
         </div>
       </li>
     </ul>

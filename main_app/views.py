@@ -23,14 +23,12 @@ def profile(request, user_id):
   request.session["steps"] -= 1
   if request.session["steps"] <= 0:
     request.session["modeltoopen"] = ''
-
   posts = Post.objects.filter(user_id=user_id).order_by('-created_at')
-  comments = Comment.objects.all()
+  comments = Comment.objects.filter(reply_id=None)
   profile = Profile.objects.get(user_id=user_id)
   profile_form = ProfileForm(instance=profile)
   post_form = PostForm()
   comment_form = CommentForm()
-  cities = City.objects.all()
   city_form = CityForm()
   return render(request, 'profile.html', { 
     'posts': posts,
@@ -38,7 +36,6 @@ def profile(request, user_id):
     'profile_form': profile_form,
     'post_form': post_form,
     'comment_form': comment_form,
-    # 'cities': cities,
     'city_form': city_form,
     'comments': comments
     })
@@ -137,13 +134,11 @@ def city_show(request, city_id):
     
   post_form = PostForm(request.POST or None)
   city = City.objects.get(id=city_id)
-  cities = City.objects.all()
   city_form = CityForm()
   posts = Post.objects.filter(city_id=city_id).order_by('-created_at')
-  comments = Comment.objects.all()
+  comments = Comment.objects.filter(reply_id=None)
   return render(request, 'cities/show.html', { 
     'city': city,
-    # 'cities': cities,
     'post_form': post_form,
     'posts': posts,
     'city_form': city_form,
