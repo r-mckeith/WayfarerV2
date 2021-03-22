@@ -2,7 +2,7 @@
     --main-color: rgb(116, 171, 102);
 }
 body {
-    background-color: rgb(188, 206, 145);
+    background-color: rgb(156, 169, 126);
 }
 
 .username {
@@ -41,7 +41,7 @@ a:hover {
     padding-left: 5px !important;
     margin-right: 10px !important;
     height: 35px !important;
-    width: 200px !important;
+    width: 180px !important;
 }
 .search:focus {
     background-color: white !important;
@@ -164,6 +164,41 @@ a:hover {
     right: 10px;
 }
 
+/* HOME PAGE */
+.boxed-w {
+    border: 10px solid var(--main-color);
+    font-weight: 900;
+    margin-right: 10px;
+}
+.heading-home {
+    background-color: rgb(227, 249, 176);
+    background: linear-gradient(0.25turn, rgb(188, 206, 145), rgb(227, 249, 176), rgb(188, 206, 145));
+    padding: 0.5em 0 0.5em 0;
+}
+.grid-cities-images {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: 10px;
+}
+.img-city-home {
+    width: 100%;
+    height: 200px;
+    background-position: center;
+    background-size: cover;
+}
+.img-city-home:hover {
+    border: 5px solid var(--main-color);
+}
+.hover-to-undarken {
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+}
+.hover-to-undarken:hover {
+    background-color: rgba(0,0,0,0);
+}
+
+
 
 /* ABOUT PAGE */
 .about-portrait {
@@ -180,4 +215,19 @@ a:hover {
 /* OVERRIDE MATERIALIZE */
 .nav-wrapper {
     background-color: var(--main-color);
+}
+.container {
+    background-color: rgb(188, 206, 145);
+    background: linear-gradient(rgb(188, 206, 145), rgba(0,0,0,0));
+    max-width: 1200px;
+    padding: 1em 0 10em 0;
+}
+
+
+
+/* MEDIA QUERIES */
+@media (max-width: 540px) {
+    body {
+        /* background-color: red; */
+    }
 }
