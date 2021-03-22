@@ -228,7 +228,7 @@ a:hover {
 /* MEDIA QUERIES */
 @media (min-width: 541px) {
     body {
-        background-color: goldenrod;
+        /* background-color: goldenrod; */
     }
     .grid-cities-images {
         grid-template-columns: repeat(3,1fr);
@@ -236,7 +236,7 @@ a:hover {
 }
 @media (max-width: 540px) {
     body {
-        background-color: red;
+        /* background-color: red; */
     }
     .search {
         max-width: 100px !important;
