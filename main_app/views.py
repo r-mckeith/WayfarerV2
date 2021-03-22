@@ -14,10 +14,16 @@ def home(request):
 
 @login_required   
 def profile_login(request):
+  request.session["steps"] = 0
   return redirect('profile', user_id=request.user.id)
 
 @login_required
 def profile(request, user_id):
+  # track if modal has been shown
+  request.session["steps"] -= 1
+  if request.session["steps"] <= 0:
+    request.session["modeltoopen"] = ''
+
   posts = Post.objects.filter(user_id=user_id).order_by('-created_at')
   comments = Comment.objects.all()
   profile = Profile.objects.get(user_id=user_id)
@@ -98,6 +104,8 @@ def comment_new(request):
     new_comment.user = request.user
     new_comment.post_id = request.POST['postId']
     new_comment.save()
+    request.session["modeltoopen"] = new_comment.post_id
+    request.session["steps"] = 2
   return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
@@ -109,6 +117,8 @@ def reply_new(request):
     # reply.post_id = request.POST['postId']
     reply.reply_id = request.POST['replyId']
     reply.save()
+    request.session["modeltoopen"] = Comment.objects.get(id=reply.reply_id).post_id
+    request.session["steps"] = 2
   return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
@@ -120,6 +130,11 @@ def city_new(request):
 
 @login_required
 def city_show(request, city_id):
+  # track if modal has been shown
+  request.session["steps"] -= 1
+  if request.session["steps"] <= 0:
+    request.session["modeltoopen"] = ''
+    
   post_form = PostForm(request.POST or None)
   city = City.objects.get(id=city_id)
   cities = City.objects.all()
