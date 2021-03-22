@@ -6,7 +6,9 @@
         <h4>Edit Post</h4>
         <form action="{% url 'post_edit' post.id %}" method="POST">
           {% csrf_token %}
+          <label>Title:</label>
           <input type="text" value="{{ post.title }}" name="title" required>
+          <label>Description:</label>
           <input type="text" value="{{ post.body }}" name="body" required>
           <div class="modal-footer">
           <input type="submit" value="Update">
