@@ -127,7 +127,13 @@ a:hover {
 .hover-to-see:hover {
     opacity: 1;
 }
-
+.font {
+    font-family: 'della respira', serif;
+    white-space: nowrap;
+}
+.align-center {
+    text-align: center;
+}
 
 
 /* SPECIFIC */
@@ -156,6 +162,19 @@ a:hover {
     position: absolute;
     top: 50px;
     right: 10px;
+}
+
+
+/* ABOUT PAGE */
+.about-portrait {
+    width: 100%;
+}
+.white-card {
+    background-color: white;
+    padding: 1em;
+    border-radius: 0.5em;
+    max-width: 600px;
+    /* font-size: 15px; */
 }
 
 /* OVERRIDE MATERIALIZE */

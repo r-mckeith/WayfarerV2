@@ -12,6 +12,9 @@ import boto3
 def home(request):
   return render(request, 'home.html')
 
+def about(request):
+  return render(request, 'about.html')
+
 @login_required   
 def profile_login(request):
   request.session["steps"] = 0
