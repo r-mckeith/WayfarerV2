@@ -4,6 +4,7 @@ Wayfarer is an exciting travel blog that allows users to experience the world wi
 ### PREVIEW 
 ![Screen Shot 2021-03-21 at 11 23 31 PM](https://user-images.githubusercontent.com/74464186/111948572-9ab4bf00-8a9c-11eb-9894-33d3f4c7507e.png)
 
+![Screen Shot 2021-03-21 at 11 32 32 PM](https://user-images.githubusercontent.com/74464186/111949343-c4bab100-8a9d-11eb-8ce2-093d36a7edfd.png)
 
 # Wayfarer
 ([click here for the link to our project hosted on Heroku!](https://the-wayfarer.herokuapp.com/))
