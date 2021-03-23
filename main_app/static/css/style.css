@@ -8,6 +8,13 @@ body {
 .username {
     margin-left: 1em;
 }
+.logo {
+    margin-left: 12px;
+    margin-top: 5px;
+}
+#sidenav-id {
+    background-color: var(--main-color);
+}
 a:hover {
     text-decoration: underline;
 }
@@ -37,11 +44,10 @@ a:hover {
 /* SEARCH BAR (base.html) */
 .search {
     background-color: white !important;
-    border-radius: 10px !important;
-    padding-left: 5px !important;
+    padding-left: 12px !important;
     margin-right: 10px !important;
     height: 35px !important;
-    width: 180px !important;
+    width: 200px !important;
 }
 .search:focus {
     background-color: white !important;
@@ -134,6 +140,9 @@ a:hover {
 .align-center {
     text-align: center;
 }
+.mar-r-4 {
+    margin-right: 4px;
+}
 
 
 /* SPECIFIC */
@@ -177,7 +186,7 @@ a:hover {
 }
 .grid-cities-images {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(3,1fr);
     grid-gap: 10px;
 }
 .img-city-home {
@@ -226,8 +235,52 @@ a:hover {
 
 
 /* MEDIA QUERIES */
-@media (max-width: 540px) {
+@media (min-width: 601px) {
     body {
-        /* background-color: red; */
+        background-color: lawngreen;
+    }    
+    .sidenav-trigger {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        background-color: goldenrod;
+    }
+    .logo {
+        margin-left: 0;
+    }
+    .search {
+        width: 200px !important;
+        margin-right: 25px !important;
+    }
+    .grid-cities-images {
+        grid-template-columns: repeat(2,1fr);
+    }
+    .descrip {
+        font-size: 16px;
+    }
+    .city-name {
+        font-size: 80px;
+        padding: 81px 0 81px 0;
+    }
+}
+
+@media (max-width: 414px) {
+    body {
+        background-color: red;
+    }
+    .grid-cities-images {
+        grid-template-columns: repeat(1,1fr);
+    }
+    .city-name {
+        font-size: 50px;
+        padding: 98px 0 98px 0;
+    }
+}
+@media (max-width: 369px) {
+    .logo {
+        display: none;
     }
 }
