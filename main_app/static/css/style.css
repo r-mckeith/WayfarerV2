@@ -254,6 +254,10 @@ a:hover {
     .descrip {
         font-size: 16px;
     }
+    .city-name {
+        font-size: 80px;
+        padding: 81px 0 81px 0;
+    }
 }
 
 @media (max-width: 414px) {
@@ -262,5 +266,9 @@ a:hover {
     }
     .grid-cities-images {
         grid-template-columns: repeat(1,1fr);
+    }
+    .city-name {
+        font-size: 50px;
+        padding: 98px 0 98px 0;
     }
 }
