@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
-{% block content %}
+{% block content  %}
 
-{% include '../partials/city_header.html' %}
-{% include '../partials/add_post.html' %}
+{% include 'partials/profile_card.html' %}
 
 {% for post in posts %}
 
-  {% include '../partials/render_posts.html'  with post=post %}
+  {% include '../partials/render_posts.html'  with post=post%}
   {% include '../partials/show_post_body_post.html' with post=post %}
   {% include '../partials/show_post_body_comments.html' with post=post %}
   {% include '../partials/modal_footer.html' %}
@@ -15,8 +14,9 @@
 
 {% endfor %}
 
+
 {% include '../partials/extraneous_divs.html' %}
-{% include '../partials/script_cities.html' %}
-{% include 'partials/script_open_modal.html' %}
+{% include '../partials/script_profile.html' %}
+
 
 {% endblock content %} 

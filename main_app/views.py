@@ -9,23 +9,29 @@ from django.http import HttpResponse
 import uuid
 import boto3
 
-# Create your views here.
 def home(request):
   return render(request, 'home.html')
 
+def about(request):
+  return render(request, 'about.html')
+
 @login_required   
 def profile_login(request):
+  request.session["steps"] = 0
   return redirect('profile', user_id=request.user.id)
 
 @login_required
 def profile(request, user_id):
+  # track if modal has been shown
+  request.session["steps"] -= 1 
+  if request.session["steps"] <= 0:
+    request.session["modeltoopen"] = ''
   posts = Post.objects.filter(user_id=user_id).order_by('-created_at')
-  comments = Comment.objects.filter()
+  comments = Comment.objects.filter(reply_id=None)
   profile = Profile.objects.get(user_id=user_id)
   profile_form = ProfileForm(instance=profile)
   post_form = PostForm()
   comment_form = CommentForm()
-  cities = City.objects.all()
   city_form = CityForm()
   return render(request, 'profile.html', { 
     'posts': posts,
@@ -33,7 +39,6 @@ def profile(request, user_id):
     'profile_form': profile_form,
     'post_form': post_form,
     'comment_form': comment_form,
-    'cities': cities,
     'city_form': city_form,
     'comments': comments
     })
@@ -42,18 +47,13 @@ S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'wayfarer-pp'
 @login_required
 def add_photo(request, user_id):
-  # photo-file will be the "name" attribute on the <input type="file">
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
       s3 = boto3.client('s3')
-      # need a unique "key" for S3 / needs image file extension too
       key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-      # just in case something goes wrong
       try:
           s3.upload_fileobj(photo_file, BUCKET, key)
-          # build the full url string
           url = f"{S3_BASE_URL}{BUCKET}/{key}"
-          # we can assign to cat_id or cat (if you have a cat object)
           profile = Profile.objects.get(user_id=request.user.id)
           profile.photo_url = url
           if user_id == request.user.id:
@@ -104,11 +104,12 @@ def comment_new(request):
     new_comment.user = request.user
     new_comment.post_id = request.POST['postId']
     new_comment.save()
+    request.session["modeltoopen"] = new_comment.post_id
+    request.session["steps"] = 2
   return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
 def reply_new(request):
-  print(request.POST, 'HIIIIIIIIIIIIIIIIIIII')
   reply_form = ReplyForm(request.POST or None)
   if request.POST and reply_form.is_valid():
     reply = reply_form.save(commit=False)
@@ -116,10 +117,9 @@ def reply_new(request):
     # reply.post_id = request.POST['postId']
     reply.reply_id = request.POST['replyId']
     reply.save()
+    request.session["modeltoopen"] = Comment.objects.get(id=reply.reply_id).post_id
+    request.session["steps"] = 2
   return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-def cities_index(request):
-  return render(request, 'cities/index.html')
 
 @login_required
 def city_new(request):
@@ -128,17 +128,24 @@ def city_new(request):
     new_city = city_form.save()
   return redirect('city_show', city_id=new_city.id)
 
-@login_required
+
 def city_show(request, city_id):
+  # track if modal has been shown
+  try: 
+    request.session["steps"] -= 1
+  except KeyError:
+    request.session["steps"] = 0
+    
+  if request.session["steps"] <= 0:
+    request.session["modeltoopen"] = ''
+    
   post_form = PostForm(request.POST or None)
   city = City.objects.get(id=city_id)
-  cities = City.objects.all()
   city_form = CityForm()
   posts = Post.objects.filter(city_id=city_id).order_by('-created_at')
-  comments = Comment.objects.all().order_by('-created_at')
+  comments = Comment.objects.filter(reply_id=None)
   return render(request, 'cities/show.html', { 
     'city': city,
-    'cities': cities,
     'post_form': post_form,
     'posts': posts,
     'city_form': city_form,
