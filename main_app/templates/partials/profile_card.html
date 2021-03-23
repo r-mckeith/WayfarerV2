@@ -1,24 +1,22 @@
   {% comment %} PROFILE CARD INFORMATION {% endcomment %}
-  <div class="row">
-    <div class="card col s12 m8 xl6 relative">
-      <div class="card-content profile-card-flex">
-        <div class="relative profile-picture" style="background-image: url('{{profile.photo_url}}')">
-          {% comment %} BUTTON - UPLOAD PICTURE {% endcomment %}
-          {% if profile.user_id == user.id %}
-          <button class="btn-browse-picture"><i class="material-icons">file_upload</i></button>
-          {% endif %}
-        </div>
-        <div class="profile-info">
-          <p>{{ profile.first_name }} {{profile.last_name }}</p>
-          <p>{{ profile.current_city }}</p>
-          <p><small>Member since: {{ user.date_joined }}</small></p>
-        </div>
+  <div class="card relative">
+    <div class="card-content profile-card-flex">
+      <div class="relative profile-picture" style="background-image: url('{{profile.photo_url}}')">
+        {% comment %} BUTTON - UPLOAD PICTURE {% endcomment %}
+        {% if profile.user_id == user.id %}
+        <button class="btn-browse-picture"><i class="material-icons">file_upload</i></button>
+        {% endif %}
       </div>
-      {% if profile.user.id == user.id %}
-        {% comment %} MODAL TRIGGER - EDIT PROFILE {% endcomment %}
-        <button class="modal-trigger edit-btn-profile hover-to-see" href="#modal1"><i class="material-icons">edit</i></button>
-      {% endif %}
+      <div class="profile-info">
+        <p>{{ profile.first_name }} {{profile.last_name }}</p>
+        <p>{{ profile.current_city }}</p>
+        <p><small>Member since: {{ user.date_joined }}</small></p>
+      </div>
     </div>
+    {% if profile.user.id == user.id %}
+      {% comment %} MODAL TRIGGER - EDIT PROFILE {% endcomment %}
+      <button class="modal-trigger edit-btn-profile hover-to-see" href="#modal1"><i class="material-icons">edit</i></button>
+    {% endif %}
   </div>
 
   {% comment %} (HIDDEN) CHANGE PROFILE PICTURE FORM {% endcomment %}
