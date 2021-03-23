@@ -1,17 +1,17 @@
-# [wayfarer](https://the-wayfarer.herokuapp.com/)
+# [Wayfarer](https://the-wayfarer.herokuapp.com/)
 
 ## PROJECT OVERVIEW 
 Wayfarer is an exciting travel blog that allows users to experience the world without ever having to leave their home. 
 
 ### PREVIEW 
 
-![home page](https://user-images.githubusercontent.com/77288642/112129064-3f5dfc00-8b84-11eb-984f-65bb895346e0.png)
+![home page large](https://user-images.githubusercontent.com/77288642/112135037-936bdf00-8b8a-11eb-9735-c0080cdf3f6c.png)
 
 ![city show large](https://user-images.githubusercontent.com/74464186/111948572-9ab4bf00-8a9c-11eb-9894-33d3f4c7507e.png)
 
 ![comments large](https://user-images.githubusercontent.com/74464186/111949343-c4bab100-8a9d-11eb-8ce2-093d36a7edfd.png)
 
-![mobile responsiveness](https://user-images.githubusercontent.com/77288642/112127898-21dc6280-8b83-11eb-9725-0c4afea35314.png)
+![mobile responsiveness 2 views](https://user-images.githubusercontent.com/77288642/112134758-4556db80-8b8a-11eb-992d-16d7ff8ac2d9.png)
 
 
 # Wayfarer
