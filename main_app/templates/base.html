@@ -24,6 +24,7 @@
 
 <nav>
   <div class="nav-wrapper">
+    <a href="{% url 'home' %}" class="logo"><img src="https://user-images.githubusercontent.com/77288642/111952755-d488c400-8aa2-11eb-9d91-1a8ef97b7479.png" alt=""></a>
     <a href="#" data-target="sidenav-id" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-small-and-down">
       {% if user.is_authenticated %}
