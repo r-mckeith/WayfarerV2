@@ -8,6 +8,10 @@ body {
 .username {
     margin-left: 1em;
 }
+.logo {
+    margin-left: 12px;
+    margin-top: 5px;
+}
 #sidenav-id {
     background-color: var(--main-color);
 }
@@ -244,6 +248,9 @@ a:hover {
     body {
         background-color: goldenrod;
     }
+    .logo {
+        margin-left: 0;
+    }
     .search {
         width: 200px !important;
         margin-right: 25px !important;
@@ -270,5 +277,10 @@ a:hover {
     .city-name {
         font-size: 50px;
         padding: 98px 0 98px 0;
+    }
+}
+@media (max-width: 369px) {
+    .logo {
+        display: none;
     }
 }
