@@ -11,6 +11,8 @@ Wayfarer is an exciting travel blog that allows users to experience the world wi
 
 ![comments large](https://user-images.githubusercontent.com/74464186/111949343-c4bab100-8a9d-11eb-8ce2-093d36a7edfd.png)
 
+### Mobile responsiveness: 
+
 ![mobile responsiveness 2 views](https://user-images.githubusercontent.com/77288642/112134758-4556db80-8b8a-11eb-992d-16d7ff8ac2d9.png)
 
 
@@ -33,7 +35,9 @@ profiles!
 * Javascript
 
 
-### User Stories:
+## USER STORIES:
+(For this project user stories and basic wire frames were provided.)
+
 #### Sprint 1: Basic Auth & Profiles
 ###### A user should be able to:
 - Navigate to "/" and see a basic splash page with:
@@ -79,6 +83,7 @@ profiles!
 - A user MUST be logged in to create/update/destroy resources.
 - A user may only edit their own profile and edit/delete their own posts.
 
+## MODELS:
 
 #### User Model
 
@@ -201,12 +206,23 @@ if ('{{request.session.modeltoopen}}' !== '') {
 }
 ```
 
-### A Thought
-The main worry for the site is that the cities are hard-coded, which
+### Thoughts
+##### A city page with no posts?
+When you reach the landing page, the images of those cities are not ordered
+by number of posts! This means that there is a good chance you will click a 
+city with no posts, and leave disheartened. Until this is fixed, I advise that
+you use the search/drop-down bar on top, which actually orders the cities based 
+on number of posts!
+##### A city review site with hardly any cities?
+Another main worry for the site is that the cities are hard-coded, which
 really limits the city choices that users have to interact with. A 
 great idea for a future update would be to implement an API that grabs
 city names from anywhere in the world.  Combine that with good search
-functionality, and wala!  Thanks for checking out the details of this project!
+functionality, and wala!  
+##### Imperfections?
+Of course, there are a ton of smaller improvements that could be made throughout
+the site, but deadlines must be set and met! Thanks for checking out the details 
+of this project! Have a good one!
 
 ### Contributor Links
 ##### Ryan McKeith
